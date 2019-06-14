@@ -1,4 +1,4 @@
-package com.remotearth.fake_coder.chatapp
+package com.remotearth.fake_coder.chatapp.screens.fragments.base
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
+import com.remotearth.fake_coder.chatapp.contracts.BaseView
+import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.utils.ConnectivityUtil
 
 abstract class BaseFragment : Fragment(), BaseView {
@@ -49,7 +51,9 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     protected fun navigateTo(actionId: Int, bundle: Bundle? = null) {
-        val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        val navController = Navigation.findNavController(requireActivity(),
+            R.id.nav_host_fragment
+        )
         navController.navigate(actionId, bundle)
     }
 

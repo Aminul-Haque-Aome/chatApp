@@ -1,12 +1,13 @@
-package com.remotearth.fake_coder.chatapp
+package com.remotearth.fake_coder.chatapp.screens.fragments
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.remotearth.fake_coder.chatapp.viewModels.LoginViewModel
+import com.remotearth.fake_coder.chatapp.R
+import com.remotearth.fake_coder.chatapp.screens.fragments.base.BaseFragment
 
 class LoginFragment : BaseFragment() {
 

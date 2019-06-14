@@ -54,7 +54,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     protected abstract fun initDataBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    protected abstract fun initialization()
     protected abstract fun initViewModel()
     protected abstract fun bundleCommunication()
-    protected abstract fun initialization()
 }

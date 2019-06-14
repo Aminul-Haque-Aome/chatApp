@@ -2,6 +2,21 @@
 
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/navigation_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.remotearth.fake_coder.chatapp.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment"/>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.remotearth.fake_coder.chatapp.SignUpFragment"
+        android:label="sign_up_fragment"
+        tools:layout="@layout/sign_up_fragment"/>
 
 </navigation>

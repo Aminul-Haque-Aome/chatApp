@@ -9,8 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
+import com.remotearth.fake_coder.chatapp.utils.ConnectivityUtil
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), BaseView {
 
     private var mContext: Context? = null
 
@@ -33,6 +34,10 @@ abstract class BaseFragment : Fragment() {
 
         initViewModel()
         bundleCommunication()
+    }
+
+    override fun isInternetAvailable(): Boolean? {
+        return ConnectivityUtil(mContext!!).isConnectedToInternet
     }
 
     protected fun showToast(message: String) {

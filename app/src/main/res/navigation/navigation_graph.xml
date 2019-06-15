@@ -8,21 +8,43 @@
     app:startDestination="@id/chatListFragment">
 
     <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.remotearth.fake_coder.chatapp.screens.fragments.ChatListFragment"
+        android:label="chat_list_fragment"
+        tools:layout="@layout/chat_list_fragment">
+        <action
+            android:id="@+id/chatList_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/chatListFragment"
+            app:popUpToInclusive="true"
+        />
+    </fragment>
+
+    <fragment
         android:id="@+id/loginFragment"
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.LoginFragment"
         android:label="login_fragment"
-        tools:layout="@layout/login_fragment"/>
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/login_to_signUp"
+            app:destination="@id/signUpFragment"/>
+        <action
+            android:id="@+id/login_to_chatList"
+            app:destination="@id/chatListFragment"
+            app:popUpTo="@id/chatListFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.SignUpFragment"
         android:label="sign_up_fragment"
-        tools:layout="@layout/sign_up_fragment"/>
-
-    <fragment
-        android:id="@+id/chatListFragment"
-        android:name="com.remotearth.fake_coder.chatapp.screens.fragments.ChatListFragment"
-        android:label="chat_list_fragment"
-        tools:layout="@layout/chat_list_fragment"/>
+        tools:layout="@layout/sign_up_fragment">
+        <action
+            android:id="@+id/signUp_to_chatList"
+            app:destination="@id/chatListFragment"
+            app:popUpTo="@id/chatListFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 </navigation>

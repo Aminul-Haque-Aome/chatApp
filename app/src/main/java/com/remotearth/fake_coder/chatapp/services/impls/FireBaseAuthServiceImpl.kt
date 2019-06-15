@@ -21,7 +21,7 @@ class FireBaseAuthServiceImpl : FireBaseAuthService {
                     user.id = fireBaseAuth.currentUser?.uid
                     fireBaseAuthCallBack.onSignUpSuccess(user)
                 } else {
-                    fireBaseAuthCallBack.onSignUpFailed()
+                    fireBaseAuthCallBack.onSignUpFailed(task.exception?.message.toString())
                 }
             }
     }

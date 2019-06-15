@@ -11,7 +11,7 @@ interface FireBaseAuthCallBack {
 
     interface SignUp{
         fun onSignUpSuccess(user: User)
-        fun onSignUpFailed()
+        fun onSignUpFailed(error: String)
     }
 
 }

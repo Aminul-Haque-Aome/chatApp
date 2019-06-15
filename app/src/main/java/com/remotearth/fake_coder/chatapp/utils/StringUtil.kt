@@ -1,6 +1,6 @@
 package com.remotearth.fake_coder.chatapp.utils
 
-object  StringUtil {
+object StringUtil {
 
     fun isNullOrEmpty(vararg fields: String?): Boolean {
         for (field in fields) {

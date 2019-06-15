@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.fragments.SignUpFragment">
 
-    <TextView
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.remotearth.fake_coder.chatapp.User"/>
+        <import type="com.remotearth.fake_coder.chatapp.viewModels.SignUpViewModel"/>
+
+        <variable name="user" type="User"/>
+        <variable name="signUpViewModel" type="SignUpViewModel"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello"/>
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context=".screens.fragments.SignUpFragment">
 
-</FrameLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="User Name"
+            android:text="@{user.name}"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:id="@+id/userNameEditText"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:text="@{user.email}"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:id="@+id/emailEditText"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:text="@{user.password}"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:id="@+id/passwordEditText"/>
+
+        <Button
+            android:text="Sign Up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/signUpButton"/>
+
+    </LinearLayout>
+
+</layout>

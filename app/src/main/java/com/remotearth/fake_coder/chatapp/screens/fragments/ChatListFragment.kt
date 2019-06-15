@@ -22,7 +22,7 @@ class ChatListFragment : BaseFragment(), ChatListView {
         return inflater.inflate(R.layout.chat_list_fragment, container, false)
     }
 
-    override fun initialization() {
+    override fun initWidget() {
 
     }
 

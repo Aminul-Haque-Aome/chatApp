@@ -25,7 +25,7 @@ class SignUpFragment : BaseFragment() {
         return signUpFragmentBinding.root
     }
 
-    override fun initialization() {
+    override fun initWidget() {
 
     }
 

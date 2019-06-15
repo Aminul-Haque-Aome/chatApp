@@ -28,7 +28,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initialization()
+        initWidget()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     protected abstract fun initDataBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-    protected abstract fun initialization()
+    protected abstract fun initWidget()
     protected abstract fun initViewModel()
     protected abstract fun bundleCommunication()
 }

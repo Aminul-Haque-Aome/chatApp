@@ -45,7 +45,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:layout_marginBottom="15dp"
             android:id="@+id/loginButton"/>
+
+        <TextView
+            android:text="Don't have an account?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:onClick="@{() -> loginViewModel.navigateToSignUp()}"
+            android:id="@+id/signUpTextView"/>
 
     </LinearLayout>
 

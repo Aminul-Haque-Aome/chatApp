@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/chatListFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -18,5 +18,11 @@
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.SignUpFragment"
         android:label="sign_up_fragment"
         tools:layout="@layout/sign_up_fragment"/>
+
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.remotearth.fake_coder.chatapp.screens.fragments.ChatListFragment"
+        android:label="chat_list_fragment"
+        tools:layout="@layout/chat_list_fragment"/>
 
 </navigation>

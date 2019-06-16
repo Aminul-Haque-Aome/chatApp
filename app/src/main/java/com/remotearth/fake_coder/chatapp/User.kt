@@ -8,30 +8,28 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class User(
     var id: String? = null,
-    var name: String? = null,
     var profileImageUrl: String? = null,
-    var email: String? = null,
-    var password: String? = null
+    var token: String? = null
 ): BaseObservable(), Parcelable {
 
-    var observableName: String?
-        @Bindable get() = name
+    var name: String? = null
+        @Bindable get() = field
         set(value) {
-            observableName = value
-            notifyPropertyChanged(BR.observableName)
+            field = value
+            notifyPropertyChanged(BR.name)
         }
 
-    var observableEmail: String?
-        @Bindable get() = email
+    var email: String? = null
+        @Bindable get() = field
         set(value) {
-            observableEmail = value
-            notifyPropertyChanged(BR.observableEmail)
+            field = value
+            notifyPropertyChanged(BR.email)
         }
 
-    var observablePassword: String?
-        @Bindable get() = password
+    var password: String? = null
+        @Bindable get() = field
         set(value) {
-            observablePassword = value
-            notifyPropertyChanged(BR.observablePassword)
+            field = value
+            notifyPropertyChanged(BR.password)
         }
 }

@@ -9,4 +9,5 @@ interface FireBaseAuthService {
     fun signUp(user: User, fireBaseAuthCallBack: FireBaseAuthCallBack.SignUp)
     fun login(email: String, password: String, fireBaseAuthCallBack: FireBaseAuthCallBack.Login)
     fun logout()
+    fun deleteAccount(fireBaseUser: FirebaseUser?, fireBaseAuthCallBack: FireBaseAuthCallBack.AccountDelete)
 }

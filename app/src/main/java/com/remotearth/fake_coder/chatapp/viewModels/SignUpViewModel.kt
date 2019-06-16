@@ -1,5 +1,6 @@
 package com.remotearth.fake_coder.chatapp.viewModels
 
+import com.google.firebase.auth.FirebaseUser
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseAuthCallBack
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
@@ -56,9 +57,21 @@ class SignUpViewModel(
             }
 
             override fun onUserAddFailed() {
+                deleteFireBaseAccount(fireBaseAuthService.getFireBaseUser())
+            }
+        })
+    }
+
+    private fun deleteFireBaseAccount(fireBaseUser: FirebaseUser?) {
+        fireBaseAuthService.deleteAccount(fireBaseUser, object: FireBaseAuthCallBack.AccountDelete {
+            override fun onDeleteFailed() {
                 hideLoader()
-                fireBaseAuthService.logout()
-                signUpView.showToast("User Info Does not stored. Please Try Again")
+                signUpView.showToast("Please Try Another Email to Sign In Again")
+            }
+
+            override fun onDeleteSuccess() {
+                hideLoader()
+                signUpView.showToast("Please Try to Sign In Again")
             }
         })
     }

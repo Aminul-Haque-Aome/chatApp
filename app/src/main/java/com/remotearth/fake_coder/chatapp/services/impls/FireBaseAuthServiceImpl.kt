@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseAuthCallBack
 import com.remotearth.fake_coder.chatapp.services.FireBaseAuthService
+import timber.log.Timber
 
 class FireBaseAuthServiceImpl : FireBaseAuthService {
 
@@ -21,6 +22,7 @@ class FireBaseAuthServiceImpl : FireBaseAuthService {
                     user.id = fireBaseAuth.currentUser?.uid
                     fireBaseAuthCallBack.onSignUpSuccess(user)
                 } else {
+                    Timber.e(task.exception)
                     fireBaseAuthCallBack.onSignUpFailed(task.exception?.message.toString())
                 }
             }
@@ -39,5 +41,15 @@ class FireBaseAuthServiceImpl : FireBaseAuthService {
 
     override fun logout() {
         fireBaseAuth.signOut()
+    }
+
+    override fun deleteAccount(fireBaseUser: FirebaseUser?, fireBaseAuthCallBack: FireBaseAuthCallBack.AccountDelete) {
+        fireBaseUser?.delete()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                fireBaseAuthCallBack.onDeleteSuccess()
+            } else {
+                fireBaseAuthCallBack.onDeleteFailed()
+            }
+        }
     }
 }

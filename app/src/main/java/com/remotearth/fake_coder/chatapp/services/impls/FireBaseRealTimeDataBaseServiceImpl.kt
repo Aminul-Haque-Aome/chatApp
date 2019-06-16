@@ -5,6 +5,7 @@ import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallb
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 import com.google.firebase.database.FirebaseDatabase
 import com.remotearth.fake_coder.chatapp.utils.config.Constant
+import timber.log.Timber
 
 class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
 
@@ -16,6 +17,7 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                 if (task.isSuccessful) {
                     fireBaseRealTimeDataBaseCallback.onUserAddSuccess()
                 } else {
+                    Timber.e(task.exception)
                     fireBaseRealTimeDataBaseCallback.onUserAddFailed()
                 }
             }

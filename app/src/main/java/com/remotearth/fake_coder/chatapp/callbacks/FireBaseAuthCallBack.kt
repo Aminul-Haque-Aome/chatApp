@@ -4,14 +4,19 @@ import com.remotearth.fake_coder.chatapp.User
 
 interface FireBaseAuthCallBack {
 
-    interface Login{
+    interface Login {
         fun onLoginSuccess()
         fun onLoginFailed()
     }
 
-    interface SignUp{
+    interface SignUp {
         fun onSignUpSuccess(user: User)
         fun onSignUpFailed(error: String)
+    }
+
+    interface AccountDelete {
+        fun onDeleteSuccess()
+        fun onDeleteFailed()
     }
 
 }

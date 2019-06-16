@@ -4,15 +4,18 @@ import com.google.firebase.auth.FirebaseUser
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseAuthCallBack
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
+import com.remotearth.fake_coder.chatapp.callbacks.FireBaseTokenReceiveCallBack
 import com.remotearth.fake_coder.chatapp.contracts.SignUpView
 import com.remotearth.fake_coder.chatapp.services.FireBaseAuthService
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
+import com.remotearth.fake_coder.chatapp.services.FireBaseTokenService
 import com.remotearth.fake_coder.chatapp.utils.StringUtil
 import com.remotearth.fake_coder.chatapp.viewModels.base.BaseViewModel
 
 class SignUpViewModel(
     private val fireBaseAuthService: FireBaseAuthService,
     private val fireBaseRealTimeDataBaseService: FireBaseRealTimeDataBaseService,
+    private val fireBaseTokenService: FireBaseTokenService,
     private val signUpView: SignUpView
 ) : BaseViewModel() {
 
@@ -39,12 +42,25 @@ class SignUpViewModel(
 
         fireBaseAuthService.signUp(user, object: FireBaseAuthCallBack.SignUp {
             override fun onSignUpSuccess(user: User) {
-                saveUserInfoToDataBase(user)
+                getToken(user)
             }
 
             override fun onSignUpFailed(error: String) {
                 hideLoader()
                 signUpView.showToast(error)
+            }
+        })
+    }
+
+    private fun getToken(user: User) {
+        fireBaseTokenService.generateToken(object: FireBaseTokenReceiveCallBack {
+            override fun onTokenReceived(token: String?) {
+                user.token = token
+                saveUserInfoToDataBase(user)
+            }
+
+            override fun onTokenReceivedFailed() {
+                saveUserInfoToDataBase(user)
             }
         })
     }

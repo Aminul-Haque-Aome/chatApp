@@ -7,6 +7,7 @@
     <data>
         <import type="com.remotearth.fake_coder.chatapp.User"/>
         <import type="com.remotearth.fake_coder.chatapp.viewModels.SignUpViewModel"/>
+        <import type="android.view.View"/>
 
         <variable name="user" type="User"/>
         <variable name="signUpViewModel" type="SignUpViewModel"/>
@@ -16,6 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screens.fragments.SignUpFragment">
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            android:visibility="@{signUpViewModel.isLoading ? View.VISIBLE : View.GONE}"
+            android:layout_gravity="center"/>
 
         <LinearLayout
             android:layout_width="match_parent"

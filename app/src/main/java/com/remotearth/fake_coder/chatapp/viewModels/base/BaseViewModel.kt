@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 
 open class BaseViewModel: ViewModel() {
 
-    private var isLoading = ObservableField<Boolean>()
+    var isLoading = ObservableField<Boolean>()
 
     fun showLoader() {
         isLoading.set(true)

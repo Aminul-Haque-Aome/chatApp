@@ -13,6 +13,7 @@ import com.remotearth.fake_coder.chatapp.viewModels.SignUpViewModel
 import com.remotearth.fake_coder.chatapp.screens.fragments.base.BaseFragment
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseAuthServiceImpl
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseRealTimeDataBaseServiceImpl
+import com.remotearth.fake_coder.chatapp.services.impls.FireBaseTokenServiceImpl
 import com.remotearth.fake_coder.chatapp.viewModels.factories.SignUpViewModelFactory
 
 class SignUpFragment : BaseFragment(), SignUpView {
@@ -38,6 +39,7 @@ class SignUpFragment : BaseFragment(), SignUpView {
             SignUpViewModelFactory(
                 FireBaseAuthServiceImpl(),
                 FireBaseRealTimeDataBaseServiceImpl(),
+                FireBaseTokenServiceImpl(),
                 this
             )
         ).get(SignUpViewModel::class.java)

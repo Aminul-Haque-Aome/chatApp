@@ -6,7 +6,7 @@ interface FireBaseAuthCallBack {
 
     interface Login {
         fun onLoginSuccess()
-        fun onLoginFailed()
+        fun onLoginFailed(error: String)
     }
 
     interface SignUp {

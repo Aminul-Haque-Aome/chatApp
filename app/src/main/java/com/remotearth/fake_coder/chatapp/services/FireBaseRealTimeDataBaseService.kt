@@ -5,4 +5,5 @@ import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallb
 
 interface FireBaseRealTimeDataBaseService {
     fun addUser(user: User, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Add)
+    fun updateToken(userId: String, newToken: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update)
 }

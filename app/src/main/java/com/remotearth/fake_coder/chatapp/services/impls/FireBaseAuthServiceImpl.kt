@@ -2,6 +2,7 @@ package com.remotearth.fake_coder.chatapp.services.impls
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.remotearth.fake_coder.chatapp.Auth
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseAuthCallBack
 import com.remotearth.fake_coder.chatapp.services.FireBaseAuthService
@@ -28,13 +29,14 @@ class FireBaseAuthServiceImpl : FireBaseAuthService {
             }
     }
 
-    override fun login(email: String, password: String, fireBaseAuthCallBack: FireBaseAuthCallBack.Login) {
-        fireBaseAuth.signInWithEmailAndPassword(email, password)
+    override fun login(auth: Auth, fireBaseAuthCallBack: FireBaseAuthCallBack.Login) {
+        fireBaseAuth.signInWithEmailAndPassword(auth.mail!!, auth.pass!!)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     fireBaseAuthCallBack.onLoginSuccess()
                 } else {
-                    fireBaseAuthCallBack.onLoginFailed()
+                    Timber.e(task.exception)
+                    fireBaseAuthCallBack.onLoginFailed(task.exception?.message.toString())
                 }
             }
     }

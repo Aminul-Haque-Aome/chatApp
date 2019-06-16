@@ -12,6 +12,8 @@ import com.remotearth.fake_coder.chatapp.contracts.LoginView
 import com.remotearth.fake_coder.chatapp.databinding.LoginFragmentBinding
 import com.remotearth.fake_coder.chatapp.screens.fragments.base.BaseFragment
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseAuthServiceImpl
+import com.remotearth.fake_coder.chatapp.services.impls.FireBaseRealTimeDataBaseServiceImpl
+import com.remotearth.fake_coder.chatapp.services.impls.FireBaseTokenServiceImpl
 import com.remotearth.fake_coder.chatapp.viewModels.factories.LoginViewModelFactory
 
 class LoginFragment : BaseFragment(), LoginView {
@@ -38,11 +40,14 @@ class LoginFragment : BaseFragment(), LoginView {
             this,
             LoginViewModelFactory(
                 FireBaseAuthServiceImpl(),
+                FireBaseTokenServiceImpl(),
+                FireBaseRealTimeDataBaseServiceImpl(),
                 this
             )
         ).get(LoginViewModel::class.java)
 
         loginFragmentBinding.loginViewModel = viewModel
+        loginFragmentBinding.auth = viewModel.auth
     }
 
     override fun bundleCommunication() {
@@ -54,7 +59,7 @@ class LoginFragment : BaseFragment(), LoginView {
     }
 
     override fun navigateToChatList() {
-
+        navigateTo(R.id.login_to_chatList)
     }
 
 }

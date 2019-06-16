@@ -22,4 +22,19 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                 }
             }
     }
+
+    override fun updateToken(userId: String, newToken: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update) {
+        val tokenMapper = HashMap<String, String>()
+        tokenMapper["token"] = newToken
+
+        databaseReference.child(Constant.USER_TABLE).child(userId).updateChildren(tokenMapper as Map<String, Any>)
+            .addOnCompleteListener {task ->
+                if (task.isSuccessful) {
+                    fireBaseRealTimeDataBaseCallback.onUpdateSuccess()
+                } else {
+                    Timber.e(task.exception)
+                    fireBaseRealTimeDataBaseCallback.onUpdateFailed(task.exception?.message.toString())
+                }
+            }
+    }
 }

@@ -29,10 +29,7 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             }
     }
 
-    override fun retrieveUser(
-        uid: String,
-        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve
-    ) {
+    override fun retrieveUser(uid: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(uid)
@@ -49,11 +46,26 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             })
     }
 
-    override fun updateUserField(
-        userId: String,
-        fieldMapping: Map<String, String>,
-        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update
-    ) {
+    override fun retrieveAllUsers(fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UserListRetrieval) {
+        databaseReference.child(Constant.USER_TABLE).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userList: MutableList<User> = ArrayList()
+
+                for (userSnapShort in dataSnapshot.children) {
+                    val user = userSnapShort.getValue(User::class.java)
+                    user?.let { userList.add(it) }
+                }
+
+                fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(userList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                fireBaseRealTimeDataBaseCallback.onRetrieveFailed(error.details)
+            }
+        })
+    }
+
+    override fun updateUserField(userId: String, fieldMapping: Map<String, String>, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(userId)

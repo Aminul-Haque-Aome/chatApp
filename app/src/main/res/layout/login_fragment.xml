@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.remotearth.fake_coder.chatapp.Auth"/>
+        <import type="com.remotearth.fake_coder.chatapp.viewModels.LoginViewModel"/>
+        <import type="android.view.View"/>
+
+        <variable name="auth" type="Auth"/>
+        <variable name="loginViewModel" type="LoginViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.fragments.LoginFragment">
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            android:visibility="@{loginViewModel.isLoading ? View.VISIBLE : View.GONE}"
+            android:layout_gravity="center"/>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="Email"
+                android:text="@={auth.mail}"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:id="@+id/emailEditText"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:text="@={auth.pass}"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:id="@+id/passwordEditText"/>
+
+            <Button
+                android:text="Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="15dp"
+                android:onClick="@{() -> loginViewModel.login(auth)}"
+                android:id="@+id/loginButton"/>
+
+            <TextView
+                android:text="Don't have an account?"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:onClick="@{() -> loginViewModel.navigateToSignUp()}"
+                android:id="@+id/signUpTextView"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

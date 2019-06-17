@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "782921923254",
+    "firebase_url": "https://chat-app-98e86.firebaseio.com",
+    "project_id": "chat-app-98e86",
+    "storage_bucket": "chat-app-98e86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782921923254:android:1b790452ab236aab",
+        "android_client_info": {
+          "package_name": "com.remotearth.fake_coder.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782921923254-i3kibrvl31qr9skqotcahksrt9b4p9t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuR0PYoZ4EA-C7ulbowRwSORsG5ne_Z7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782921923254-i3kibrvl31qr9skqotcahksrt9b4p9t1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

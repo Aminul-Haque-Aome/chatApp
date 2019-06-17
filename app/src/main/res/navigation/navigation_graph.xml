@@ -16,8 +16,7 @@
             android:id="@+id/chatList_to_login"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/chatListFragment"
-            app:popUpToInclusive="true"
-        />
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -31,7 +30,7 @@
         <action
             android:id="@+id/login_to_chatList"
             app:destination="@id/chatListFragment"
-            app:popUpTo="@id/chatListFragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
     </fragment>
 
@@ -43,7 +42,7 @@
         <action
             android:id="@+id/signUp_to_chatList"
             app:destination="@id/chatListFragment"
-            app:popUpTo="@id/chatListFragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
     </fragment>
 

@@ -50,4 +50,9 @@ class UserInfoFragment : BaseFragment(), UserInfoView {
 
     override fun bundleCommunication() {}
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.getLoggedInUserInfo()
+    }
+
 }

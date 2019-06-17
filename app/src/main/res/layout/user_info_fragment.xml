@@ -37,7 +37,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@{user.id}"
-                android:hint="Id"/>
+                tools:text="Id"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -46,14 +46,14 @@
                 android:text="@{user.name}"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:hint="User Name"/>
+                tools:text="User Name"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@{user.email}"
-                android:hint="Email"/>
+                tools:text="Email"/>
 
             <Button
                 android:text="Logout"

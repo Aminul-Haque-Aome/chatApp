@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.fragments.ChatListFragment">
 
-    <TextView
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.remotearth.fake_coder.chatapp.viewModels.ChatListViewModel"/>
+        <variable name="chatListViewModel" type="ChatListViewModel"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello"/>
+        android:orientation="vertical"
+        tools:context=".screens.fragments.ChatListFragment">
 
-</FrameLayout>
+        <Button
+            android:text="Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> chatListViewModel.showProfile()}"/>
+
+    </LinearLayout>
+
+</layout>

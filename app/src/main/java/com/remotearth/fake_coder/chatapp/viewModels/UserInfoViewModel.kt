@@ -1,5 +1,6 @@
 package com.remotearth.fake_coder.chatapp.viewModels
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
@@ -38,5 +39,13 @@ class UserInfoViewModel(
                 userInfoView.showToast(error)
             }
         })
+    }
+
+    fun selectProfilePictureFromGallery() {
+        userInfoView.fetchImageFromGallery()
+    }
+
+    fun setProfilePicture(data: Uri?) {
+
     }
 }

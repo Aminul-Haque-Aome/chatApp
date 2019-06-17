@@ -11,6 +11,7 @@ import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import timber.log.Timber
 
 class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
+
     private var databaseReference = FirebaseDatabase.getInstance().reference
 
     override fun addUser(user: User, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Add) {
@@ -54,12 +55,31 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
         fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update
     ) {
         val tokenMapper = HashMap<String, String>()
-        tokenMapper["token"] = newToken
+        tokenMapper[Constant.USER_FIELD_TOKEN] = newToken
 
         databaseReference
             .child(Constant.USER_TABLE)
             .child(userId)
             .updateChildren(tokenMapper as Map<String, Any>)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    fireBaseRealTimeDataBaseCallback.onUpdateSuccess()
+                } else {
+                    Timber.e(task.exception)
+                    fireBaseRealTimeDataBaseCallback.onUpdateFailed(task.exception?.message.toString())
+                }
+            }
+    }
+
+    override fun updateToken(
+        userId: String,
+        fieldMapping: Map<String, String>,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update
+    ) {
+        databaseReference
+            .child(Constant.USER_TABLE)
+            .child(userId)
+            .updateChildren(fieldMapping)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     fireBaseRealTimeDataBaseCallback.onUpdateSuccess()

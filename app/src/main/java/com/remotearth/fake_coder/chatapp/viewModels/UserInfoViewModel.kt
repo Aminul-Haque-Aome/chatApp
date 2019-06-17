@@ -68,7 +68,7 @@ class UserInfoViewModel(
     }
 
     private fun updateProfileImageUrl(hashMap: HashMap<String, String>) {
-        fireBaseRealTimeDataBaseService.updateToken(fireBaseAuthService.getFireBaseUser()?.uid!!, hashMap, object: FireBaseRealTimeDataBaseCallback.Update {
+        fireBaseRealTimeDataBaseService.updateUserField(fireBaseAuthService.getFireBaseUser()?.uid!!, hashMap, object: FireBaseRealTimeDataBaseCallback.Update {
             override fun onUpdateSuccess() {
                 userInfoView.hideUploadProgress()
             }

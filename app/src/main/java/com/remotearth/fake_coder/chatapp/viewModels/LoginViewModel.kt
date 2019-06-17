@@ -9,6 +9,7 @@ import com.remotearth.fake_coder.chatapp.services.FireBaseAuthService
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 import com.remotearth.fake_coder.chatapp.services.FireBaseTokenService
 import com.remotearth.fake_coder.chatapp.utils.StringUtil
+import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import com.remotearth.fake_coder.chatapp.viewModels.base.BaseViewModel
 
 class LoginViewModel(
@@ -57,8 +58,10 @@ class LoginViewModel(
 
     private fun generateNewToken() {
         fireBaseTokenService.generateToken(object: FireBaseTokenReceiveCallBack {
-            override fun onTokenReceived(token: String?) {
-                updateToken(token)
+            override fun onTokenReceived(token: String) {
+                val hashMap = HashMap<String, String>()
+                hashMap[Constant.USER_FIELD_TOKEN] = token
+                updateToken(hashMap)
             }
 
             override fun onTokenReceivedFailed() {
@@ -68,8 +71,8 @@ class LoginViewModel(
         })
     }
 
-    private fun updateToken(token: String?) {
-        fireBaseRealTimeDataBaseService.updateToken(fireBaseAuthService.getFireBaseUser()?.uid!!, token!!, object: FireBaseRealTimeDataBaseCallback.Update {
+    private fun updateToken(hashMap: HashMap<String, String>) {
+        fireBaseRealTimeDataBaseService.updateUserField(fireBaseAuthService.getFireBaseUser()?.uid!!, hashMap, object: FireBaseRealTimeDataBaseCallback.Update {
             override fun onUpdateSuccess() {
                 hideLoader()
                 loginView.navigateToChatList()

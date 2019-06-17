@@ -4,6 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.remotearth.fake_coder.chatapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".screens.ChatApplication"
         android:allowBackup="true"

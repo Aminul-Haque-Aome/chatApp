@@ -12,14 +12,17 @@ import com.google.android.material.snackbar.Snackbar
 import com.remotearth.fake_coder.chatapp.contracts.base.BaseView
 import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.utils.ConnectivityUtil
+import com.remotearth.fake_coder.chatapp.utils.ProgressUtil
 
 abstract class BaseFragment : Fragment(), BaseView {
 
     private var mContext: Context? = null
+    private var progressUtil: ProgressUtil? = null
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         this.mContext = context
+        progressUtil = ProgressUtil(context!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,6 +51,14 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun showSnackBar(message: String, parentLayout: View) {
         mContext?.let { Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG).show() }
+    }
+
+    override fun showProgress(message: String) {
+        progressUtil?.showProgressDialog(message)
+    }
+
+    override fun hideProgress() {
+        progressUtil?.hideProgressDialog()
     }
 
     protected fun navigateTo(actionId: Int, bundle: Bundle? = null) {

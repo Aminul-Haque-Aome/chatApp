@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.remotearth.fake_coder.chatapp.User"/>
+        <import type="com.remotearth.fake_coder.chatapp.viewModels.UserInfoViewModel"/>
+        <import type="android.view.View"/>
+
+        <variable name="user" type="User"/>
+        <variable name="userInfoViewModel" type="UserInfoViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.fragments.UserInfoFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:onClick="@{() -> userInfoViewModel.selectProfilePictureFromGallery()}"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
+                app:profileImage="@{user.profileImageUrl}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@{user.id}"
+                tools:text="Id"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{user.name}"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:text="User Name"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{user.email}"
+                tools:text="Email"/>
+
+            <Button
+                android:text="Logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:padding="15dp"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            android:visibility="@{userInfoViewModel.isLoading ? View.VISIBLE : View.GONE}"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+</layout>

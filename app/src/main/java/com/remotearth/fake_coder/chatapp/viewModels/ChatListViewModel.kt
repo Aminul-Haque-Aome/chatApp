@@ -15,4 +15,8 @@ class ChatListViewModel(
         }
     }
 
+    fun showProfile() {
+        chatListView.navigateToUserInfo()
+    }
+
 }

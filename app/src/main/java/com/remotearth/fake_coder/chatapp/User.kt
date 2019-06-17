@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class User(
     var id: String? = null,
-    var profileImageUrl: String? = null,
+    var profileImageUrl: String? = "",
     var token: String? = null
 ): BaseObservable(), Parcelable {
 

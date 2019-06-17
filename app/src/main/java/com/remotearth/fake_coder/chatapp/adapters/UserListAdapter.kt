@@ -7,7 +7,7 @@ import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.UserListViewHolder
 import com.remotearth.fake_coder.chatapp.databinding.UserItemBinding
 
-class UserListAdapter: RecyclerView.Adapter<UserListViewHolder>() {
+class UserListAdapter(private val onClickListener: (User) -> Unit): RecyclerView.Adapter<UserListViewHolder>() {
 
     private var users: ArrayList<User>? = ArrayList()
 
@@ -21,7 +21,7 @@ class UserListAdapter: RecyclerView.Adapter<UserListViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
-        holder.bind(users?.get(position)!!)
+        holder.bind(users?.get(position)!!, onClickListener)
     }
 
     fun replaceData(users: ArrayList<User>) {

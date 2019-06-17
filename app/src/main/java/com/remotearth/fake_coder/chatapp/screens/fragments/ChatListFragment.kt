@@ -25,7 +25,7 @@ class ChatListFragment : BaseFragment(), ChatListView {
 
     private lateinit var viewModel: ChatListViewModel
     private lateinit var chatListFragmentBinding: ChatListFragmentBinding
-    private val userListAdapter = UserListAdapter()
+    private lateinit var userListAdapter: UserListAdapter
 
     override fun initDataBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         chatListFragmentBinding = DataBindingUtil.inflate(
@@ -38,6 +38,7 @@ class ChatListFragment : BaseFragment(), ChatListView {
     }
 
     override fun initWidget() {
+        userListAdapter = UserListAdapter { showToast("Navigation") }
         userListRecyclerView.layoutManager = LinearLayoutManager(context)
         userListRecyclerView.adapter = userListAdapter
     }

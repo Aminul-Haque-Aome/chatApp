@@ -6,6 +6,8 @@
 
     <data>
         <import type="com.remotearth.fake_coder.chatapp.viewModels.ChatListViewModel"/>
+        <import type="android.view.View"/>
+
         <variable name="chatListViewModel" type="ChatListViewModel"/>
     </data>
 
@@ -20,6 +22,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> chatListViewModel.showProfile()}"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminate="true"
+                android:visibility="@{chatListViewModel.isLoading ? View.VISIBLE : View.GONE}"
+                android:layout_gravity="center"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/userListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:visibility="@{chatListViewModel.isLoading ? View.GONE : View.VISIBLE}"
+                tools:listitem="@layout/user_item"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 

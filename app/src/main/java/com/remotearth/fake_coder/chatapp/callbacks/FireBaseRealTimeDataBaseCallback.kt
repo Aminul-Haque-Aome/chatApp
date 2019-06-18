@@ -18,4 +18,9 @@ interface FireBaseRealTimeDataBaseCallback {
         fun onRetrieveSuccess(user: User)
         fun onRetrieveFailed(error: String)
     }
+
+    interface UserListRetrieval {
+        fun onRetrieveSuccess(users: List<User>)
+        fun onRetrieveFailed(error: String)
+    }
 }

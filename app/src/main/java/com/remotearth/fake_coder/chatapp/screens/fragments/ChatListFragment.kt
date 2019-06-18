@@ -17,6 +17,7 @@ import com.remotearth.fake_coder.chatapp.databinding.ChatListFragmentBinding
 import com.remotearth.fake_coder.chatapp.screens.fragments.base.BaseFragment
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseAuthServiceImpl
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseRealTimeDataBaseServiceImpl
+import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import com.remotearth.fake_coder.chatapp.viewModels.ChatListViewModel
 import com.remotearth.fake_coder.chatapp.viewModels.factories.ChatListViewModelFactory
 import kotlinx.android.synthetic.main.chat_list_fragment.*
@@ -38,7 +39,12 @@ class ChatListFragment : BaseFragment(), ChatListView {
     }
 
     override fun initWidget() {
-        userListAdapter = UserListAdapter { showToast("Navigation") }
+        userListAdapter = UserListAdapter {
+            val bundle = Bundle()
+            bundle.putParcelable(Constant.BUNDLE_USER, it)
+            navigateTo(R.id.chatList_to_chat, bundle)
+        }
+
         userListRecyclerView.layoutManager = LinearLayoutManager(context)
         userListRecyclerView.adapter = userListAdapter
     }

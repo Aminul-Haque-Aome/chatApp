@@ -14,4 +14,6 @@ object Constant {
     const val KEY_YEAR = "yyyy"
     const val KEY_MONTH = "MMMM"
     const val HOUR_MINUTE_AM_PM = "h:mm a"
+
+    const val BUNDLE_USER = "bundle"
 }

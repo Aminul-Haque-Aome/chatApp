@@ -9,9 +9,9 @@ object Constant {
     const val USER_FIELD_IMAGE_URL = "profileImageUrl"
 
     const val KEY_DATE_MONTH_YEAR = "dd-MM-yyyy"
-    const val KEY_DATE_MONTH_YEAR_HOUR_MINUTE_AM_PM = "dd-MM-yyyy h:mm a"
+    const val DATE_MONTH_YEAR_HOUR_MINUTE_AM_PM = "dd MM yyyy h:mm a"
     const val KEY_MONTH_YEAR = "MMMM,yy"
     const val KEY_YEAR = "yyyy"
     const val KEY_MONTH = "MMMM"
-    const val KEY_HOUR_MINUTE_AM_PM = "h:mm a"
+    const val HOUR_MINUTE_AM_PM = "h:mm a"
 }

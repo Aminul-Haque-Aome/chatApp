@@ -21,7 +21,7 @@ class ReleaseTree : Timber.Tree() {
             if (priority == Log.ERROR && t != null) {
 //                Crashlytics.setInt(CRASHLYTICS_KEY_PRIORITY, priority)
 //                Crashlytics.setString(CRASHLYTICS_KEY_TAG, tag)
-//                Crashlytics.setString(CRASHLYTICS_KEY_MESSAGE, message)
+//                Crashlytics.setString(CRASHLYTICS_KEY_MESSAGE, text)
 //                Crashlytics.logException(t)
             }
         }

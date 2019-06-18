@@ -10,7 +10,7 @@ object DateTimeUtil {
 
     fun getDate(): String {
         val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat(Constant.KEY_HOUR_MINUTE_AM_PM, Locale.getDefault())
+        val dateFormat = SimpleDateFormat(Constant.HOUR_MINUTE_AM_PM, Locale.getDefault())
         return dateFormat.format(calendar.time)
     }
 

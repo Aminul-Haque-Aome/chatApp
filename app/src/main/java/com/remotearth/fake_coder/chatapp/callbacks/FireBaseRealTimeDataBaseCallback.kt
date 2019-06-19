@@ -23,4 +23,13 @@ interface FireBaseRealTimeDataBaseCallback {
         fun onRetrieveSuccess(users: List<User>)
         fun onRetrieveFailed(error: String)
     }
+
+    interface ThreadRetrieval {
+        fun onRetrieveSuccess(thread: String)
+        fun onRetrieveFailed(error: String)
+    }
+
+    interface ThreadExistence {
+        fun onThreadExist(isExist: Boolean)
+    }
 }

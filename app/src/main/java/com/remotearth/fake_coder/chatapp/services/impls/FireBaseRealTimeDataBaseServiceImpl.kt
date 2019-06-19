@@ -29,11 +29,14 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             }
     }
 
-    override fun retrieveUser(uid: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve) {
+    override fun retrieveUser(
+        uid: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve
+    ) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(uid)
-            .addValueEventListener(object: ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
                     Timber.e(error.details)
                     fireBaseRealTimeDataBaseCallback.onRetrieveFailed(error.details)
@@ -47,25 +50,31 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
     }
 
     override fun retrieveAllUsers(fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UserListRetrieval) {
-        databaseReference.child(Constant.USER_TABLE).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val userList: MutableList<User> = ArrayList()
+        databaseReference
+            .child(Constant.USER_TABLE)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val userList: MutableList<User> = ArrayList()
 
-                for (userSnapShort in dataSnapshot.children) {
-                    val user = userSnapShort.getValue(User::class.java)
-                    user?.let { userList.add(it) }
+                    for (userSnapShort in dataSnapshot.children) {
+                        val user = userSnapShort.getValue(User::class.java)
+                        user?.let { userList.add(it) }
+                    }
+
+                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(userList)
                 }
 
-                fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(userList)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                fireBaseRealTimeDataBaseCallback.onRetrieveFailed(error.details)
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed(error.details)
+                }
+            })
     }
 
-    override fun updateUserField(userId: String, fieldMapping: Map<String, String>, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update) {
+    override fun updateUserField(
+        userId: String,
+        fieldMapping: Map<String, String>,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update
+    ) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(userId)
@@ -78,5 +87,63 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                     fireBaseRealTimeDataBaseCallback.onUpdateFailed(task.exception?.message.toString())
                 }
             }
+    }
+
+
+    override fun isThreadExist(
+        senderId: String,
+        receiverId: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadExistence
+    ) {
+        databaseReference
+            .child(Constant.THREAD_TABLE)
+            .child(senderId)
+            .child(receiverId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapShot: DataSnapshot) {
+                    if (dataSnapShot.exists()) {
+                        fireBaseRealTimeDataBaseCallback.onThreadExist(true)
+                    } else {
+                        fireBaseRealTimeDataBaseCallback.onThreadExist(false)
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Timber.e(databaseError.toException())
+                }
+            })
+    }
+
+    override fun createThreadTable(senderId: String, receiverId: String) {
+        val threadName = databaseReference.child(Constant.THREAD_TABLE).child(senderId).child(receiverId).push().key
+
+        databaseReference
+            .child(Constant.THREAD_TABLE)
+            .child(senderId)
+            .child(receiverId)
+            .setValue(threadName)
+    }
+
+    override fun getThread(
+        senderId: String,
+        receiverId: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval
+    ) {
+        databaseReference
+            .child(Constant.THREAD_TABLE)
+            .child(senderId)
+            .child(receiverId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapShot: DataSnapshot) {
+                    if (dataSnapShot.exists()) {
+                        fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(dataSnapShot.getValue(String::class.java)!!)
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Timber.e(databaseError.toException())
+                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed(databaseError.details)
+                }
+            })
     }
 }

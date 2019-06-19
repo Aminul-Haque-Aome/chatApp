@@ -29,10 +29,7 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             }
     }
 
-    override fun retrieveUser(
-        uid: String,
-        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve
-    ) {
+    override fun retrieveUser(uid: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(uid)
@@ -70,11 +67,7 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             })
     }
 
-    override fun updateUserField(
-        userId: String,
-        fieldMapping: Map<String, String>,
-        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update
-    ) {
+    override fun updateUserField(userId: String, fieldMapping: Map<String, String>, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(userId)
@@ -90,11 +83,8 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
     }
 
 
-    override fun isThreadExist(
-        senderId: String,
-        receiverId: String,
-        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadExistence
-    ) {
+
+    override fun isThreadExist(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadExistence) {
         databaseReference
             .child(Constant.THREAD_TABLE)
             .child(senderId)
@@ -115,20 +105,29 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
     }
 
     override fun createThreadTable(senderId: String, receiverId: String) {
-        val threadName = databaseReference.child(Constant.THREAD_TABLE).child(senderId).child(receiverId).push().key
+        getThread(receiverId, senderId, object: FireBaseRealTimeDataBaseCallback.ThreadRetrieval {
+            override fun onRetrieveSuccess(thread: String) {
+                databaseReference
+                    .child(Constant.THREAD_TABLE)
+                    .child(senderId)
+                    .child(receiverId)
+                    .setValue(thread)
+            }
 
-        databaseReference
-            .child(Constant.THREAD_TABLE)
-            .child(senderId)
-            .child(receiverId)
-            .setValue(threadName)
+            override fun onRetrieveFailed(error: String) {}
+
+            override fun threadNotExistListener() {
+                val threadName = databaseReference.child(Constant.THREAD_TABLE).child(senderId).child(receiverId).push().key
+                databaseReference
+                    .child(Constant.THREAD_TABLE)
+                    .child(senderId)
+                    .child(receiverId)
+                    .setValue(threadName)
+            }
+        })
     }
 
-    override fun getThread(
-        senderId: String,
-        receiverId: String,
-        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval
-    ) {
+    override fun getThread(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval) {
         databaseReference
             .child(Constant.THREAD_TABLE)
             .child(senderId)
@@ -137,6 +136,8 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                 override fun onDataChange(dataSnapShot: DataSnapshot) {
                     if (dataSnapShot.exists()) {
                         fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(dataSnapShot.getValue(String::class.java)!!)
+                    } else {
+                        fireBaseRealTimeDataBaseCallback.threadNotExistListener()
                     }
                 }
 
@@ -146,4 +147,5 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                 }
             })
     }
+
 }

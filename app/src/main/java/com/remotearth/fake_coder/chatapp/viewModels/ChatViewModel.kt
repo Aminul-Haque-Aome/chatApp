@@ -13,6 +13,8 @@ class ChatViewModel(
     private val chatView: ChatView
 ) : BaseViewModel() {
 
+    var chatThreadName: String? = null
+
     fun getSenderId(): String {
         return fireBaseAuthService.getFireBaseUser()?.uid!!
     }
@@ -32,10 +34,13 @@ class ChatViewModel(
         fireBaseRealTimeDataBaseService.createThreadTable(senderId, receiverId)
     }
 
-    fun getThread(senderId: String, receiverId: String) {
+    private fun getThread(senderId: String, receiverId: String) {
         fireBaseRealTimeDataBaseService.getThread(senderId, receiverId, object: FireBaseRealTimeDataBaseCallback.ThreadRetrieval {
+            override fun threadNotExistListener() {}
+
             override fun onRetrieveSuccess(thread: String) {
-                chatView.showToast(thread)
+                chatThreadName = thread
+                chatView.showToast(chatThreadName!!)
             }
 
             override fun onRetrieveFailed(error: String) {

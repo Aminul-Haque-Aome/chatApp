@@ -12,4 +12,5 @@ interface FireBaseRealTimeDataBaseService {
     fun isThreadExist(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadExistence)
     fun createThreadTable(senderId: String, receiverId: String)
     fun getThread(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval)
+
 }

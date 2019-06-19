@@ -8,6 +8,7 @@ object Constant {
     const val USER_FIELD_TOKEN = "token"
     const val USER_FIELD_IMAGE_URL = "profileImageUrl"
     const val THREAD_TABLE = "ChatThread"
+    const val CHAT_TABLE = "Chats"
 
     const val KEY_DATE_MONTH_YEAR = "dd-MM-yyyy"
     const val DATE_MONTH_YEAR_HOUR_MINUTE_AM_PM = "dd MM yyyy h:mm a"

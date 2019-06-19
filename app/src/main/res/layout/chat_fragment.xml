@@ -5,13 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="com.remotearth.fake_coder.chatapp.Message"/>
+        <import type="com.remotearth.fake_coder.chatapp.viewModels.ChatViewModel"/>
+
+        <variable name="message" type="Message"/>
+        <variable name="chatViewModel" type="ChatViewModel"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screens.fragments.ChatFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mMessageRecyclerView"
+            android:id="@+id/messageRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +31,6 @@
             tools:listitem="@layout/message_sender_layout"/>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/message_edit_text_background"
@@ -34,23 +41,24 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:id="@+id/mMessageEditText"
+                android:id="@+id/textMessage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:background="@android:color/transparent"
+                android:text="@={message.text}"
                 android:hint="Write your message..."
                 android:minHeight="40dp"
                 android:paddingStart="10dp"
                 android:textSize="14sp"/>
 
             <ImageView
-                android:id="@+id/mPostMessageButton"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="#E2FBF2"
                 android:padding="12dp"
+                android:onClick="@{() -> chatViewModel.sendMessage(message)}"
                 android:src="@drawable/ic_send"/>
 
         </LinearLayout>

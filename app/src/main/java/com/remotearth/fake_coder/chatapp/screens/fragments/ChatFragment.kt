@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 
 import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.User
@@ -17,6 +18,7 @@ import com.remotearth.fake_coder.chatapp.services.impls.FireBaseRealTimeDataBase
 import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import com.remotearth.fake_coder.chatapp.viewModels.ChatViewModel
 import com.remotearth.fake_coder.chatapp.viewModels.factories.ChatViewModelFactory
+import kotlinx.android.synthetic.main.chat_fragment.*
 
 class ChatFragment : BaseFragment(), ChatView {
 
@@ -44,6 +46,9 @@ class ChatFragment : BaseFragment(), ChatView {
                 this
             )
         ).get(ChatViewModel::class.java)
+
+        chatFragmentBinding.chatViewModel = viewModel
+        chatFragmentBinding.message = viewModel.message
     }
 
     override fun bundleCommunication() {
@@ -51,8 +56,12 @@ class ChatFragment : BaseFragment(), ChatView {
         viewModel.isThreadExist(viewModel.getSenderId(), receiver!!)
     }
 
-    override fun createChatThread(user: User) {
+    override fun createThread(user: User) {
         viewModel.createThread(viewModel.getSenderId(), user.id!!)
+    }
+
+    override fun clearTextFieldAndRefreshData() {
+        textMessage.setText("")
     }
 
 }

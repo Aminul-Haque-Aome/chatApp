@@ -1,5 +1,6 @@
 package com.remotearth.fake_coder.chatapp.callbacks
 
+import com.remotearth.fake_coder.chatapp.Message
 import com.remotearth.fake_coder.chatapp.User
 
 interface FireBaseRealTimeDataBaseCallback {
@@ -32,5 +33,10 @@ interface FireBaseRealTimeDataBaseCallback {
 
     interface ThreadExistence {
         fun onThreadExist(isExist: Boolean)
+    }
+
+    interface MessageSent {
+        fun onMessageSentSuccess()
+        fun onMessageSentFailed()
     }
 }

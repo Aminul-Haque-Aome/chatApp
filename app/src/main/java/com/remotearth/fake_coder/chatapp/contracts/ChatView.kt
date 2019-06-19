@@ -4,5 +4,6 @@ import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.contracts.base.BaseView
 
 interface ChatView: BaseView {
-    fun createChatThread(user: User)
+    fun createThread(user: User)
+    fun clearTextFieldAndRefreshData()
 }

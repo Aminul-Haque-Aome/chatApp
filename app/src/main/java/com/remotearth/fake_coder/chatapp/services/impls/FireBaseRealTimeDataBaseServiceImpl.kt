@@ -7,6 +7,7 @@ import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallb
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.remotearth.fake_coder.chatapp.Message
 import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import timber.log.Timber
 
@@ -146,6 +147,24 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                     fireBaseRealTimeDataBaseCallback.onRetrieveFailed(databaseError.details)
                 }
             })
+    }
+
+
+    override fun sendMessage(message: Message, threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.MessageSent) {
+        val pushKey = databaseReference.child(Constant.CHAT_TABLE).child(threadName).push().key
+
+        databaseReference
+            .child(Constant.CHAT_TABLE)
+            .child(threadName)
+            .child(pushKey!!)
+            .setValue(message)
+            .addOnCompleteListener{
+                if (it.isSuccessful) {
+                    fireBaseRealTimeDataBaseCallback.onMessageSentSuccess()
+                } else {
+                    fireBaseRealTimeDataBaseCallback.onMessageSentFailed()
+                }
+            }
     }
 
 }

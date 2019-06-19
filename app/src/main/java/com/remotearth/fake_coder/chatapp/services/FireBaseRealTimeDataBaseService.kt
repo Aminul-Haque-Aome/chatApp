@@ -1,5 +1,6 @@
 package com.remotearth.fake_coder.chatapp.services
 
+import com.remotearth.fake_coder.chatapp.Message
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
 
@@ -13,4 +14,5 @@ interface FireBaseRealTimeDataBaseService {
     fun createThreadTable(senderId: String, receiverId: String)
     fun getThread(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval)
 
+    fun sendMessage(message: Message, threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.MessageSent)
 }

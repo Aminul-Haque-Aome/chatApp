@@ -54,7 +54,7 @@ class SignUpViewModel(
 
     private fun getToken(user: User) {
         fireBaseTokenService.generateToken(object: FireBaseTokenReceiveCallBack {
-            override fun onTokenReceived(token: String?) {
+            override fun onTokenReceived(token: String) {
                 user.token = token
                 saveUserInfoToDataBase(user)
             }

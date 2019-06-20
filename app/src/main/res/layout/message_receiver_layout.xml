@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.remotearth.fake_coder.chatapp.Message"/>
+
+        <variable name="message" type="Message"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/message_bubble_min_height"
+        android:layout_marginStart="@dimen/receiver_chat_start_margin"
+        android:layout_marginEnd="@dimen/receiver_chat_end_margin"
+        android:layout_marginTop="@dimen/chat_separator_margin">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            tools:src="@drawable/ic_select_image"
+            android:id="@+id/circleImageView"
+            app:receiverImage="@{message.userId}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.523"/>
+
+        <LinearLayout
+            android:id="@+id/messageHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/grey"
+                android:text="@{message.isSeen() == true ? `Seen` : `Unseen`}"
+                android:textStyle="bold"
+                android:textSize="8sp"
+                android:visibility="gone"
+                tools:text="Seen"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/chat_message_padding"
+                android:text="@{message.text}"
+                tools:text="Hi from Receiver"
+                android:background="@drawable/messaage_receiver_chat_background"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey"
+                tools:text="JUNE 19 AT 03:30 PM"
+                android:textSize="8sp"
+                android:visibility="gone"
+                app:timeStamp="@{message.timestamp}"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

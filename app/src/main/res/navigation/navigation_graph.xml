@@ -20,6 +20,9 @@
         <action
             android:id="@+id/chatList_to_userInfo"
             app:destination="@id/userInfoFragment"/>
+        <action
+            android:id="@+id/chatList_to_chat"
+            app:destination="@id/chatFragment"/>
     </fragment>
 
     <fragment
@@ -54,5 +57,11 @@
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.UserInfoFragment"
         android:label="UserInfoFragment"
         tools:layout="@layout/user_info_fragment"/>
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.remotearth.fake_coder.chatapp.screens.fragments.ChatFragment"
+        android:label="ChatFragment"
+        tools:layout="@layout/chat_fragment"/>
 
 </navigation>

@@ -10,7 +10,7 @@
     <dimen name="sender_chat_end_margin">40dp</dimen>
 
     <dimen name="chat_message_padding">12dp</dimen>
-    <dimen name="chat_bubble_top_margin">1dp</dimen>
+    <dimen name="chat_separator_margin">2dp</dimen>
 
     <dimen name="message_bubble_min_height">25dp</dimen>
 </resources>

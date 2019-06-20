@@ -19,7 +19,7 @@
         android:minHeight="@dimen/message_bubble_min_height"
         android:layout_marginStart="@dimen/receiver_chat_start_margin"
         android:layout_marginEnd="@dimen/receiver_chat_end_margin"
-        android:layout_marginTop="@dimen/chat_bubble_top_margin">
+        android:layout_marginTop="@dimen/chat_separator_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="45dp"
@@ -53,6 +53,7 @@
                 android:text="@{message.isSeen() == true ? `Seen` : `Unseen`}"
                 android:textStyle="bold"
                 android:textSize="8sp"
+                android:visibility="gone"
                 tools:text="Seen"/>
 
             <TextView
@@ -69,6 +70,7 @@
                 android:textColor="@color/grey"
                 tools:text="JUNE 19 AT 03:30 PM"
                 android:textSize="8sp"
+                android:visibility="gone"
                 app:timeStamp="@{message.timestamp}"/>
 
         </LinearLayout>

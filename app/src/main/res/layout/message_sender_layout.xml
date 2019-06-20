@@ -19,7 +19,7 @@
         android:minHeight="@dimen/message_bubble_min_height"
         android:layout_marginStart="@dimen/sender_chat_end_margin"
         android:layout_marginEnd="@dimen/sender_chat_start_margin"
-        android:layout_marginTop="@dimen/chat_bubble_top_margin">
+        android:layout_marginTop="@dimen/chat_separator_margin">
 
         <LinearLayout
             android:id="@+id/messageHolder"
@@ -41,6 +41,7 @@
                 android:textColor="@color/grey"
                 android:textStyle="bold"
                 android:textSize="8sp"
+                android:visibility="gone"
                 tools:text="Seen"/>
 
             <TextView
@@ -58,6 +59,7 @@
                 android:textColor="@color/grey"
                 tools:text="JUNE 19 AT 03:30 PM"
                 android:textSize="8sp"
+                android:visibility="gone"
                 app:timeStamp="@{message.timestamp}"/>
 
         </LinearLayout>

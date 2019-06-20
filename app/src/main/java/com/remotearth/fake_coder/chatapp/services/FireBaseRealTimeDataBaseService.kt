@@ -15,4 +15,5 @@ interface FireBaseRealTimeDataBaseService {
     fun getThread(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval)
 
     fun sendMessage(message: Message, threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.MessageSent)
+    fun loadAllMessageOfSpecificThread(threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage)
 }

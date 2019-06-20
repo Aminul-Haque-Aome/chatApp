@@ -1,5 +1,6 @@
 package com.remotearth.fake_coder.chatapp.viewModels
 
+import androidx.lifecycle.MutableLiveData
 import com.remotearth.fake_coder.chatapp.Message
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
@@ -17,39 +18,66 @@ class ChatViewModel(
 ) : BaseViewModel() {
 
     var chatThreadName: String? = null
-    var message: Message = Message(userId = getSenderId(), isSeen = false)
 
-    fun isThreadExist(senderId: String, user: User) {
-        fireBaseRealTimeDataBaseService.isThreadExist(senderId, user.id!!, object: FireBaseRealTimeDataBaseCallback.ThreadExistence {
-            override fun onThreadExist(isExist: Boolean) {
-                if (!isExist) {
-                    chatView.createThread(user)
+    var message: Message = Message(userId = getSenderId(), isSeen = false)
+    var messageList: MutableLiveData<List<Message>> = MutableLiveData()
+
+    fun isThreadExist(receiverId: String) {
+        if (chatView.isInternetAvailable()!!) {
+            checkThreadExistOrNot(getSenderId(), receiverId)
+        } else {
+            chatView.showToast("Please connect to Internet")
+        }
+    }
+
+    private fun checkThreadExistOrNot(senderId: String, receiverId: String) {
+        fireBaseRealTimeDataBaseService.isThreadExist(
+            senderId,
+            receiverId,
+            object : FireBaseRealTimeDataBaseCallback.ThreadExistence {
+                override fun onThreadExist(isExist: Boolean) {
+                    if (!isExist) {
+                        createThread(getSenderId(), receiverId)
+                    }
+                    getThread(getSenderId(), receiverId)
                 }
-                getThread(senderId, user.id!!)
-            }
-        })
+            })
+    }
+
+    private fun createThread(senderId: String, receiverId: String) {
+        fireBaseRealTimeDataBaseService.createThreadTable(senderId, receiverId)
     }
 
     fun getSenderId(): String {
         return fireBaseAuthService.getFireBaseUser()?.uid!!
     }
 
-    fun createThread(senderId: String, receiverId: String) {
-        fireBaseRealTimeDataBaseService.createThreadTable(senderId, receiverId)
+    private fun getThread(senderId: String, receiverId: String) {
+        fireBaseRealTimeDataBaseService.getThread(
+            senderId,
+            receiverId,
+            object : FireBaseRealTimeDataBaseCallback.ThreadRetrieval {
+                override fun threadNotExistListener() {}
+
+                override fun onRetrieveSuccess(threadName: String) {
+                    chatThreadName = threadName
+                    getAllMessageOfTheThread()
+                }
+
+                override fun onRetrieveFailed(error: String) {
+                    chatView.showToast(error)
+                }
+            })
     }
 
-    private fun getThread(senderId: String, receiverId: String) {
-        fireBaseRealTimeDataBaseService.getThread(senderId, receiverId, object: FireBaseRealTimeDataBaseCallback.ThreadRetrieval {
-            override fun threadNotExistListener() {}
-
-            override fun onRetrieveSuccess(thread: String) {
-                chatThreadName = thread
-            }
-
-            override fun onRetrieveFailed(error: String) {
-                chatView.showToast(error)
-            }
-        })
+    private fun getAllMessageOfTheThread() {
+        fireBaseRealTimeDataBaseService.loadAllMessageOfSpecificThread(
+            chatThreadName!!,
+            object : FireBaseRealTimeDataBaseCallback.GetAllMessage {
+                override fun onRetrieveSuccess(messages: List<Message>) {
+                    messageList.value = messages
+                }
+            })
     }
 
     fun sendMessage(message: Message) {
@@ -71,15 +99,18 @@ class ChatViewModel(
     }
 
     private fun send(message: Message) {
-        fireBaseRealTimeDataBaseService.sendMessage(message, this.chatThreadName!!, object: FireBaseRealTimeDataBaseCallback.MessageSent {
-            override fun onMessageSentSuccess() {
-                chatView.clearTextFieldAndRefreshData()
-            }
+        fireBaseRealTimeDataBaseService.sendMessage(
+            message,
+            this.chatThreadName!!,
+            object : FireBaseRealTimeDataBaseCallback.MessageSent {
+                override fun onMessageSentSuccess() {
+                    chatView.clearTextFieldAndRefreshData()
+                }
 
-            override fun onMessageSentFailed() {
-                chatView.showToast("Message Sent Failed")
-            }
-        })
+                override fun onMessageSentFailed() {
+                    chatView.showToast("Message Sent Failed")
+                }
+            })
     }
 
 }

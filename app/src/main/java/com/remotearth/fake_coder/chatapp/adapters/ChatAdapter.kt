@@ -1,9 +1,11 @@
-package com.remotearth.fake_coder.chatapp.adapters.viewHolders
+package com.remotearth.fake_coder.chatapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearth.fake_coder.chatapp.Message
+import com.remotearth.fake_coder.chatapp.adapters.viewHolders.ReceivedViewHolder
+import com.remotearth.fake_coder.chatapp.adapters.viewHolders.SentViewHolder
 import com.remotearth.fake_coder.chatapp.databinding.MessageReceiverLayoutBinding
 import com.remotearth.fake_coder.chatapp.databinding.MessageSenderLayoutBinding
 

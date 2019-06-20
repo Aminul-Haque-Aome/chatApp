@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.firebase.auth.FirebaseAuth
+import com.remotearth.fake_coder.chatapp.Message
 
 import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.adapters.ChatAdapter
 import com.remotearth.fake_coder.chatapp.contracts.ChatView
 import com.remotearth.fake_coder.chatapp.databinding.ChatFragmentBinding
 import com.remotearth.fake_coder.chatapp.screens.fragments.base.BaseFragment
@@ -25,6 +28,8 @@ class ChatFragment : BaseFragment(), ChatView {
     private lateinit var viewModel: ChatViewModel
     private lateinit var chatFragmentBinding: ChatFragmentBinding
 
+    private lateinit var chatAdapter: ChatAdapter
+
     override fun initDataBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         chatFragmentBinding = DataBindingUtil.inflate(
             inflater,
@@ -35,7 +40,12 @@ class ChatFragment : BaseFragment(), ChatView {
         return chatFragmentBinding.root
     }
 
-    override fun initWidget() {}
+    override fun initWidget() {
+        chatAdapter = ChatAdapter(FirebaseAuth.getInstance().currentUser?.uid!!)
+
+        messageRecyclerView.adapter = chatAdapter
+        messageRecyclerView.scrollToPosition((messageRecyclerView.adapter as ChatAdapter).itemCount - 1)
+    }
 
     override fun initViewModel() {
         viewModel = ViewModelProviders.of(
@@ -49,19 +59,19 @@ class ChatFragment : BaseFragment(), ChatView {
 
         chatFragmentBinding.chatViewModel = viewModel
         chatFragmentBinding.message = viewModel.message
+
+        viewModel.messageList.observe(this, Observer { chatAdapter.replaceData(it as ArrayList<Message>) })
     }
 
     override fun bundleCommunication() {
         val receiver = arguments?.getParcelable<User>(Constant.BUNDLE_USER)
-        viewModel.isThreadExist(viewModel.getSenderId(), receiver!!)
-    }
-
-    override fun createThread(user: User) {
-        viewModel.createThread(viewModel.getSenderId(), user.id!!)
+        viewModel.isThreadExist(receiver?.id!!)
     }
 
     override fun clearTextFieldAndRefreshData() {
+        chatAdapter.notifyDataSetChanged()
         textMessage.setText("")
+        messageRecyclerView.scrollToPosition((messageRecyclerView.adapter as ChatAdapter).itemCount - 1)
     }
 
 }

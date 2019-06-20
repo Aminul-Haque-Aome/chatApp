@@ -107,25 +107,25 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
 
     override fun createThreadTable(senderId: String, receiverId: String) {
         getThread(receiverId, senderId, object: FireBaseRealTimeDataBaseCallback.ThreadRetrieval {
-            override fun onRetrieveSuccess(thread: String) {
-                databaseReference
-                    .child(Constant.THREAD_TABLE)
-                    .child(senderId)
-                    .child(receiverId)
-                    .setValue(thread)
+            override fun onRetrieveSuccess(threadName: String) {
+                createThread(senderId, receiverId, threadName)
             }
-
-            override fun onRetrieveFailed(error: String) {}
 
             override fun threadNotExistListener() {
                 val threadName = databaseReference.child(Constant.THREAD_TABLE).child(senderId).child(receiverId).push().key
-                databaseReference
-                    .child(Constant.THREAD_TABLE)
-                    .child(senderId)
-                    .child(receiverId)
-                    .setValue(threadName)
+                createThread(senderId, receiverId, threadName!!)
             }
+
+            override fun onRetrieveFailed(error: String) {}
         })
+    }
+
+    private fun createThread(senderId: String, receiverId: String, threadName: String) {
+        databaseReference
+            .child(Constant.THREAD_TABLE)
+            .child(senderId)
+            .child(receiverId)
+            .setValue(threadName)
     }
 
     override fun getThread(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval) {
@@ -165,6 +165,28 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                     fireBaseRealTimeDataBaseCallback.onMessageSentFailed()
                 }
             }
+    }
+
+    override fun loadAllMessageOfSpecificThread(threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage) {
+        databaseReference.child(Constant.CHAT_TABLE).child(threadName).addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val messageList: MutableList<Message> = ArrayList()
+
+                    for (userSnapShort in dataSnapshot.children) {
+                        val message = userSnapShort.getValue(Message::class.java)
+                        Timber.d("Message "+ message?.text)
+                        message?.let { messageList.add(it) }
+                    }
+
+                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(messageList)
+                }
+            }
+        })
     }
 
 }

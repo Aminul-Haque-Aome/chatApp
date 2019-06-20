@@ -46,12 +46,18 @@ class ChatAdapter(private val fireBaseUserId: String) : RecyclerView.Adapter<Rec
         when (holder.itemViewType) {
             SENDER -> {
                 val sentViewHolder = holder as SentViewHolder
-                sentViewHolder.bind(messages[position])
+                sentViewHolder.bind(messages[position]) {
+                    if(it.isSeen == false) {
+
+                    }
+                }
             }
 
             RECEIVER -> {
                 val receivedViewHolder = holder as ReceivedViewHolder
-                receivedViewHolder.bind(messages[position])
+                receivedViewHolder.bind(messages[position]) {
+
+                }
             }
         }
     }

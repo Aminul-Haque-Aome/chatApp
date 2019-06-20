@@ -6,8 +6,9 @@ import com.remotearth.fake_coder.chatapp.databinding.MessageSenderLayoutBinding
 
 class SentViewHolder (private val bindingView: MessageSenderLayoutBinding) : RecyclerView.ViewHolder(bindingView.root) {
 
-    fun bind(message: Message) {
+    fun bind(message: Message, onClickListener: (Message) -> Unit) {
         bindingView.message = message
+        bindingView.root.setOnClickListener { onClickListener(message) }
     }
 
 }

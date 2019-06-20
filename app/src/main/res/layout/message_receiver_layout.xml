@@ -12,7 +12,7 @@
         <variable name="message" type="Message"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +27,7 @@
             tools:src="@drawable/ic_select_image"
             android:id="@+id/circleImageView"
             app:receiverImage="@{message.userId}"
+            android:layout_gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +37,7 @@
 
         <LinearLayout
             android:id="@+id/messageHolder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="8dp"
@@ -47,15 +48,15 @@
             app:layout_constraintHorizontal_bias="0.0">
 
             <TextView
-                android:id="@+id/seenStatusTextView"
+                android:id="@+id/timeStampTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:textColor="@color/grey"
-                android:text="@{message.isSeen() == true ? `Seen` : `Unseen`}"
-                android:textStyle="bold"
+                tools:text="JUNE 19 AT 03:30 PM"
+                android:gravity="center"
                 android:textSize="8sp"
                 android:visibility="gone"
-                tools:text="Seen"/>
+                app:timeStamp="@{message.timestamp}"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,17 +67,18 @@
                 android:background="@drawable/messaage_receiver_chat_background"/>
 
             <TextView
-                android:id="@+id/timeStampTextView"
-                android:layout_width="wrap_content"
+                android:id="@+id/seenStatusTextView"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textColor="@color/grey"
-                tools:text="JUNE 19 AT 03:30 PM"
+                android:text="@{message.isSeen() == true ? `Seen` : `Delivered`}"
+                android:textStyle="bold"
                 android:textSize="8sp"
                 android:visibility="gone"
-                app:timeStamp="@{message.timestamp}"/>
+                tools:text="Delivered"/>
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

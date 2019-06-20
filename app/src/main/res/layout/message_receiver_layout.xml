@@ -26,6 +26,7 @@
             android:layout_height="45dp"
             tools:src="@drawable/ic_select_image"
             android:id="@+id/circleImageView"
+            app:receiverImage="@{message.userId}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

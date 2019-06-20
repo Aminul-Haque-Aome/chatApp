@@ -16,4 +16,5 @@ interface FireBaseRealTimeDataBaseService {
 
     fun sendMessage(message: Message, threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.MessageSent)
     fun loadAllMessageOfSpecificThread(threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage)
+    fun updateMessageSeenStatus(threadName: String, userId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UpdateSeenStatus)
 }

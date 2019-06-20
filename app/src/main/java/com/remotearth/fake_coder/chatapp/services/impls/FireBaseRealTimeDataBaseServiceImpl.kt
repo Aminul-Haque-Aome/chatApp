@@ -220,7 +220,7 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
         userId: String,
         fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UpdateSeenStatus
     ) {
-        val snapShot = databaseReference.child(Constant.CHAT_TABLE).child(threadName)
+        val reference = databaseReference.child(Constant.CHAT_TABLE).child(threadName)
 
         databaseReference
             .child(Constant.CHAT_TABLE)
@@ -228,14 +228,14 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        for (userSnapShort in dataSnapshot.children) {
-                            val message = userSnapShort.getValue(Message::class.java)
+                        for (messageSnapShot in dataSnapshot.children) {
+                            val message = messageSnapShot.getValue(Message::class.java)
 
                             if (message?.userId != userId && message?.isSeen == false) {
                                 val hashMap = HashMap<String, Boolean>()
                                 hashMap[Constant.CHAT_FIELD_IS_MESSAGE_SEEN] = true
 
-                                snapShot.updateChildren(hashMap as Map<String, Boolean>)
+                                reference.child(messageSnapShot.key!!).updateChildren(hashMap as Map<String, Boolean>)
                             }
                         }
                     }

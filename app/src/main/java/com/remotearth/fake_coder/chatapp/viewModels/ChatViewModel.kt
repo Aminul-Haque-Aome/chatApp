@@ -63,6 +63,7 @@ class ChatViewModel(
 
                 override fun onRetrieveSuccess(threadName: String) {
                     chatThreadName = threadName
+                    updatePreviousMessageSeenStatus()
                     getAllMessageOfTheThread()
                 }
 
@@ -120,6 +121,18 @@ class ChatViewModel(
                     chatView.showToast("Message Sent Failed")
                 }
             })
+    }
+
+    fun updatePreviousMessageSeenStatus() {
+        if (chatView.isInternetAvailable()!!) {
+            fireBaseRealTimeDataBaseService.updateMessageSeenStatus(chatThreadName!!, getSenderId(), object: FireBaseRealTimeDataBaseCallback.UpdateSeenStatus {
+                override fun onUpdateFailed(messages: String) {
+                    chatView.showToast(messages)
+                }
+            })
+        } else {
+            chatView.showToast("Please connect to Internet")
+        }
     }
 
 }

@@ -71,6 +71,7 @@ class ChatFragment : BaseFragment(), ChatView {
     }
 
     override fun clearTextFieldAndRefreshData() {
+        viewModel.updatePreviousMessageSeenStatus()
         chatAdapter.notifyDataSetChanged()
         textMessage.setText("")
         messageRecyclerView.scrollToPosition((messageRecyclerView.adapter as ChatAdapter).itemCount - 1)

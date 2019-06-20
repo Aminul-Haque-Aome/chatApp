@@ -68,7 +68,7 @@ class ChatListFragment : BaseFragment(), ChatListView {
     override fun onStart() {
         super.onStart()
         viewModel.checkUserStatus()
-        viewModel.loadAllUsers()
+        viewModel.retrieveAllUsers()
     }
 
     override fun navigateToLogin() {

@@ -70,12 +70,13 @@
                 android:id="@+id/seenStatusTextView"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textColor="@color/grey"
+                android:textColor="@{message.isSeen() == true ? @color/green : @color/grey}"
                 android:text="@{message.isSeen() == true ? `Seen` : `Delivered`}"
                 android:textStyle="bold"
                 android:textSize="8sp"
                 android:visibility="gone"
                 tools:text="Delivered"/>
+
 
         </LinearLayout>
 

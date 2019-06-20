@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.remotearth.fake_coder.chatapp.Message
 
@@ -43,6 +44,7 @@ class ChatFragment : BaseFragment(), ChatView {
     override fun initWidget() {
         chatAdapter = ChatAdapter(FirebaseAuth.getInstance().currentUser?.uid!!)
 
+        messageRecyclerView.layoutManager = LinearLayoutManager(context)
         messageRecyclerView.adapter = chatAdapter
         messageRecyclerView.scrollToPosition((messageRecyclerView.adapter as ChatAdapter).itemCount - 1)
     }

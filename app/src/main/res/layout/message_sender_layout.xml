@@ -21,18 +21,6 @@
         android:layout_marginEnd="@dimen/chat_bubble_right_margin"
         android:layout_marginTop="@dimen/chat_bubble_top_margin">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            tools:src="@drawable/ic_select_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="0.523"
-            android:id="@+id/circleImageView"/>
-
         <LinearLayout
             android:id="@+id/messageHolder"
             android:layout_width="wrap_content"
@@ -40,12 +28,12 @@
             android:gravity="right"
             android:orientation="vertical"
             android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/circleImageView"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="0.523">
 
             <TextView
                 android:layout_height="wrap_content"

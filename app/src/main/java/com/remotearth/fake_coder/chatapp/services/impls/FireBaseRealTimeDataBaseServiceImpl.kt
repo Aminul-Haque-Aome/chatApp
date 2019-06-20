@@ -169,8 +169,9 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
 
     override fun loadAllMessageOfSpecificThread(threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage) {
         databaseReference.child(Constant.CHAT_TABLE).child(threadName).addValueEventListener(object: ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-
+            override fun onCancelled(databaseError: DatabaseError) {
+                Timber.e(databaseError.toException())
+                fireBaseRealTimeDataBaseCallback.onRetrieveFailed(databaseError.details)
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -184,6 +185,8 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                     }
 
                     fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(messageList)
+                } else {
+                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed("No chats!!")
                 }
             }
         })

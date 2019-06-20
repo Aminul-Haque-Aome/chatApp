@@ -42,5 +42,6 @@ interface FireBaseRealTimeDataBaseCallback {
 
     interface GetAllMessage {
         fun onRetrieveSuccess(messages: List<Message>)
+        fun onRetrieveFailed(messages: String)
     }
 }

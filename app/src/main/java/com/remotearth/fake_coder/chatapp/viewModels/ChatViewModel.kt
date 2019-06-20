@@ -31,6 +31,8 @@ class ChatViewModel(
     }
 
     private fun checkThreadExistOrNot(senderId: String, receiverId: String) {
+        showLoader()
+
         fireBaseRealTimeDataBaseService.isThreadExist(
             senderId,
             receiverId,
@@ -65,6 +67,7 @@ class ChatViewModel(
                 }
 
                 override fun onRetrieveFailed(error: String) {
+                    hideLoader()
                     chatView.showToast(error)
                 }
             })
@@ -75,7 +78,13 @@ class ChatViewModel(
             chatThreadName!!,
             object : FireBaseRealTimeDataBaseCallback.GetAllMessage {
                 override fun onRetrieveSuccess(messages: List<Message>) {
+                    hideLoader()
                     messageList.value = messages
+                }
+
+                override fun onRetrieveFailed(messages: String) {
+                    hideLoader()
+                    chatView.showToast(messages)
                 }
             })
     }

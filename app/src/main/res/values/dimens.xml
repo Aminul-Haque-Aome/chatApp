@@ -3,8 +3,12 @@
 <resources>
     <dimen name="large_label_margin">8dp</dimen>
 
-    <dimen name="chat_bubble_left_margin">8dp</dimen>
-    <dimen name="chat_bubble_right_margin">8dp</dimen>
+    <dimen name="receiver_chat_start_margin">8dp</dimen>
+    <dimen name="sender_chat_start_margin">8dp</dimen>
+
+    <dimen name="receiver_chat_end_margin">40dp</dimen>
+    <dimen name="sender_chat_end_margin">40dp</dimen>
+
     <dimen name="chat_message_padding">12dp</dimen>
     <dimen name="chat_bubble_top_margin">1dp</dimen>
 

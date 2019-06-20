@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/message_bubble_min_height"
-        android:layout_marginStart="@dimen/chat_bubble_left_margin"
-        android:layout_marginEnd="@dimen/chat_bubble_right_margin"
+        android:layout_marginStart="@dimen/sender_chat_end_margin"
+        android:layout_marginEnd="@dimen/sender_chat_start_margin"
         android:layout_marginTop="@dimen/chat_bubble_top_margin">
 
         <LinearLayout
@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:orientation="vertical"
-            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,6 +49,7 @@
                 android:padding="@dimen/chat_message_padding"
                 android:text="@{message.text}"
                 tools:text="Hi from Sender"
+                android:textColor="@color/grey"
                 android:background="@drawable/message_sender_chat_background"/>
 
             <TextView

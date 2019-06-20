@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/message_bubble_min_height"
-        android:layout_marginStart="@dimen/chat_bubble_left_margin"
-        android:layout_marginEnd="@dimen/chat_bubble_right_margin"
+        android:layout_marginStart="@dimen/receiver_chat_start_margin"
+        android:layout_marginEnd="@dimen/receiver_chat_end_margin"
         android:layout_marginTop="@dimen/chat_bubble_top_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -61,7 +61,6 @@
                 android:padding="@dimen/chat_message_padding"
                 android:text="@{message.text}"
                 tools:text="Hi from Receiver"
-                android:textColor="@color/grey"
                 android:background="@drawable/messaage_receiver_chat_background"/>
 
             <TextView

@@ -10,7 +10,7 @@
         android:bottomLeftRadius="0dp"
         android:bottomRightRadius="15dp"/>
 
-    <solid android:color="#059F69"/>
+    <solid android:color="#E2FBF2"/>
 
     <padding
         android:bottom="5dp"

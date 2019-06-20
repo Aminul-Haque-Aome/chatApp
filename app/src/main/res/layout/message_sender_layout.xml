@@ -35,6 +35,7 @@
             app:layout_constraintVertical_bias="0.523">
 
             <TextView
+                android:id="@+id/seenStatusTextView"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="@{message.isSeen() == true ? `Seen` : `Unseen`}"
@@ -54,6 +55,7 @@
                 android:background="@drawable/message_sender_chat_background"/>
 
             <TextView
+                android:id="@+id/timeStampTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grey"

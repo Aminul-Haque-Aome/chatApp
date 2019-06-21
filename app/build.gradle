@@ -70,7 +70,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
-    // ... DotsLoader (https://github.com/agrawalsuneet/DotLoadersPack-Android)
+    // ... AVLoadingIndicatorView (https://github.com/agrawalsuneet/DotLoadersPack-Android)
     implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4.1'
 
     testImplementation 'junit:junit:4.12'

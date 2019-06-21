@@ -19,7 +19,8 @@
         android:minHeight="@dimen/message_bubble_min_height"
         android:layout_marginStart="@dimen/receiver_chat_start_margin"
         android:layout_marginEnd="@dimen/receiver_chat_end_margin"
-        android:layout_marginTop="@dimen/chat_separator_margin">
+        android:layout_marginTop="@dimen/chat_separator_margin"
+        android:layout_marginBottom="@dimen/chat_separator_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="45dp"

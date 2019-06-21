@@ -19,7 +19,8 @@
         android:minHeight="@dimen/message_bubble_min_height"
         android:layout_marginStart="@dimen/sender_chat_end_margin"
         android:layout_marginEnd="@dimen/sender_chat_start_margin"
-        android:layout_marginTop="@dimen/chat_separator_margin">
+        android:layout_marginTop="@dimen/chat_separator_margin"
+        android:layout_marginBottom="@dimen/chat_separator_margin">
 
         <LinearLayout
             android:id="@+id/messageHolder"
@@ -51,7 +52,7 @@
                 android:padding="@dimen/chat_message_padding"
                 android:text="@{message.text}"
                 tools:text="Hi from Sender"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:background="@drawable/message_sender_chat_background"/>
 
             <TextView

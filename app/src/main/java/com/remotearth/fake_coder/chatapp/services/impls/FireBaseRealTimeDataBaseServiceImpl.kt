@@ -30,7 +30,10 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             }
     }
 
-    override fun retrieveUser(uid: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve) {
+    override fun retrieveUser(
+        uid: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Retrieve
+    ) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(uid)
@@ -68,7 +71,11 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             })
     }
 
-    override fun updateUserField(userId: String, fieldMapping: Map<String, String>, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update) {
+    override fun updateUserField(
+        userId: String,
+        fieldMapping: Map<String, String>,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.Update
+    ) {
         databaseReference
             .child(Constant.USER_TABLE)
             .child(userId)
@@ -84,8 +91,11 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
     }
 
 
-
-    override fun isThreadExist(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadExistence) {
+    override fun isThreadExist(
+        senderId: String,
+        receiverId: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadExistence
+    ) {
         databaseReference
             .child(Constant.THREAD_TABLE)
             .child(senderId)
@@ -106,13 +116,14 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
     }
 
     override fun createThreadTable(senderId: String, receiverId: String) {
-        getThread(receiverId, senderId, object: FireBaseRealTimeDataBaseCallback.ThreadRetrieval {
+        getThread(receiverId, senderId, object : FireBaseRealTimeDataBaseCallback.ThreadRetrieval {
             override fun onRetrieveSuccess(threadName: String) {
                 createThread(senderId, receiverId, threadName)
             }
 
             override fun threadNotExistListener() {
-                val threadName = databaseReference.child(Constant.THREAD_TABLE).child(senderId).child(receiverId).push().key
+                val threadName =
+                    databaseReference.child(Constant.THREAD_TABLE).child(senderId).child(receiverId).push().key
                 createThread(senderId, receiverId, threadName!!)
             }
 
@@ -128,7 +139,11 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             .setValue(threadName)
     }
 
-    override fun getThread(senderId: String, receiverId: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval) {
+    override fun getThread(
+        senderId: String,
+        receiverId: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.ThreadRetrieval
+    ) {
         databaseReference
             .child(Constant.THREAD_TABLE)
             .child(senderId)
@@ -150,7 +165,11 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
     }
 
 
-    override fun sendMessage(message: Message, threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.MessageSent) {
+    override fun sendMessage(
+        message: Message,
+        threadName: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.MessageSent
+    ) {
         val pushKey = databaseReference.child(Constant.CHAT_TABLE).child(threadName).push().key
 
         databaseReference
@@ -158,7 +177,7 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             .child(threadName)
             .child(pushKey!!)
             .setValue(message)
-            .addOnCompleteListener{
+            .addOnCompleteListener {
                 if (it.isSuccessful) {
                     fireBaseRealTimeDataBaseCallback.onMessageSentSuccess()
                 } else {
@@ -167,29 +186,65 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             }
     }
 
-    override fun loadAllMessageOfSpecificThread(threadName: String, fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage) {
-        databaseReference.child(Constant.CHAT_TABLE).child(threadName).addValueEventListener(object: ValueEventListener {
-            override fun onCancelled(databaseError: DatabaseError) {
-                Timber.e(databaseError.toException())
-                fireBaseRealTimeDataBaseCallback.onRetrieveFailed(databaseError.details)
-            }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    val messageList: MutableList<Message> = ArrayList()
-
-                    for (userSnapShort in dataSnapshot.children) {
-                        val message = userSnapShort.getValue(Message::class.java)
-                        Timber.d("Message "+ message?.text)
-                        message?.let { messageList.add(it) }
-                    }
-
-                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(messageList)
-                } else {
-                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed("No chats!!")
+    override fun loadAllMessageOfSpecificThread(
+        threadName: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage
+    ) {
+        databaseReference.child(Constant.CHAT_TABLE).child(threadName)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Timber.e(databaseError.toException())
+                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed(databaseError.details)
                 }
-            }
-        })
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        val messageList: MutableList<Message> = ArrayList()
+
+                        for (userSnapShort in dataSnapshot.children) {
+                            val message = userSnapShort.getValue(Message::class.java)
+                            Timber.d("Message " + message?.text)
+                            message?.let { messageList.add(it) }
+                        }
+
+                        fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(messageList)
+                    } else {
+                        fireBaseRealTimeDataBaseCallback.onRetrieveFailed("No chats!!")
+                    }
+                }
+            })
+    }
+
+    override fun updateMessageSeenStatus(
+        threadName: String,
+        userId: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UpdateSeenStatus
+    ) {
+        val reference = databaseReference.child(Constant.CHAT_TABLE).child(threadName)
+
+        databaseReference
+            .child(Constant.CHAT_TABLE)
+            .child(threadName)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (messageSnapShot in dataSnapshot.children) {
+                            val message = messageSnapShot.getValue(Message::class.java)
+
+                            if (message?.userId != userId && message?.isSeen == false) {
+                                val hashMap = HashMap<String, Boolean>()
+                                hashMap[Constant.CHAT_FIELD_IS_MESSAGE_SEEN] = true
+
+                                reference.child(messageSnapShot.key!!).updateChildren(hashMap as Map<String, Boolean>)
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    fireBaseRealTimeDataBaseCallback.onUpdateFailed(databaseError.message)
+                }
+            })
     }
 
 }

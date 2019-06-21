@@ -44,4 +44,8 @@ interface FireBaseRealTimeDataBaseCallback {
         fun onRetrieveSuccess(messages: List<Message>)
         fun onRetrieveFailed(messages: String)
     }
+
+    interface UpdateSeenStatus {
+        fun onUpdateFailed(messages: String)
+    }
 }

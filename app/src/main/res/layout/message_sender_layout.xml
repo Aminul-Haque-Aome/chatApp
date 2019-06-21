@@ -19,11 +19,12 @@
         android:minHeight="@dimen/message_bubble_min_height"
         android:layout_marginStart="@dimen/sender_chat_end_margin"
         android:layout_marginEnd="@dimen/sender_chat_start_margin"
-        android:layout_marginTop="@dimen/chat_separator_margin">
+        android:layout_marginTop="@dimen/chat_separator_margin"
+        android:layout_marginBottom="@dimen/chat_separator_margin">
 
         <LinearLayout
             android:id="@+id/messageHolder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:orientation="vertical"
@@ -35,14 +36,15 @@
             app:layout_constraintVertical_bias="0.523">
 
             <TextView
+                android:id="@+id/timeStampTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@{message.isSeen() == true ? `Seen` : `Unseen`}"
+                android:gravity="center"
                 android:textColor="@color/grey"
-                android:textStyle="bold"
+                tools:text="JUNE 19 AT 03:30 PM"
                 android:textSize="8sp"
                 android:visibility="gone"
-                tools:text="Seen"/>
+                app:timeStamp="@{message.timestamp}"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,17 +52,20 @@
                 android:padding="@dimen/chat_message_padding"
                 android:text="@{message.text}"
                 tools:text="Hi from Sender"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:background="@drawable/message_sender_chat_background"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/seenStatusTextView"
                 android:layout_height="wrap_content"
-                android:textColor="@color/grey"
-                tools:text="JUNE 19 AT 03:30 PM"
+                android:layout_width="wrap_content"
+                android:text="@{message.isSeen() == true ? `Seen` : `Delivered`}"
+                android:textColor="@{message.isSeen() == true ? @color/green : @color/grey}"
+                android:textStyle="bold"
                 android:textSize="8sp"
                 android:visibility="gone"
-                app:timeStamp="@{message.timestamp}"/>
+                tools:text="Delivered"/>
+
 
         </LinearLayout>
 

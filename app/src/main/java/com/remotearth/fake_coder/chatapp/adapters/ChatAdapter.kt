@@ -1,13 +1,17 @@
 package com.remotearth.fake_coder.chatapp.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearth.fake_coder.chatapp.Message
+import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.ReceivedViewHolder
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.SentViewHolder
 import com.remotearth.fake_coder.chatapp.databinding.MessageReceiverLayoutBinding
 import com.remotearth.fake_coder.chatapp.databinding.MessageSenderLayoutBinding
+import timber.log.Timber
 
 class ChatAdapter(private val fireBaseUserId: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

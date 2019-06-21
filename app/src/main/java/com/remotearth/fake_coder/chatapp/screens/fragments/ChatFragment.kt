@@ -42,11 +42,12 @@ class ChatFragment : BaseFragment(), ChatView {
     }
 
     override fun initWidget() {
-        chatAdapter = ChatAdapter(FirebaseAuth.getInstance().currentUser?.uid!!)
+        val linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.reverseLayout = true
+        messageRecyclerView.layoutManager = linearLayoutManager
 
-        messageRecyclerView.layoutManager = LinearLayoutManager(context)
+        chatAdapter = ChatAdapter(FirebaseAuth.getInstance().currentUser?.uid!!)
         messageRecyclerView.adapter = chatAdapter
-        messageRecyclerView.scrollToPosition((messageRecyclerView.adapter as ChatAdapter).itemCount - 1)
     }
 
     override fun initViewModel() {
@@ -71,9 +72,9 @@ class ChatFragment : BaseFragment(), ChatView {
     }
 
     override fun clearTextFieldAndRefreshData() {
+        viewModel.updatePreviousMessageSeenStatus()
         chatAdapter.notifyDataSetChanged()
         textMessage.setText("")
-        messageRecyclerView.scrollToPosition((messageRecyclerView.adapter as ChatAdapter).itemCount - 1)
     }
 
 }

@@ -26,9 +26,18 @@ class ChatListViewModel(
         chatListView.navigateToUserInfo()
     }
 
-    fun loadAllUsers() {
+    fun retrieveAllUsers() {
         showLoader()
 
+        if (chatListView.isInternetAvailable()!!) {
+            retrieve()
+        } else {
+            hideLoader()
+            chatListView.showToast("Please Connect to Internet")
+        }
+    }
+
+    private fun retrieve() {
         fireBaseRealTimeDataBaseService.retrieveAllUsers(object: FireBaseRealTimeDataBaseCallback.UserListRetrieval {
             override fun onRetrieveSuccess(users: List<User>) {
                 hideLoader()

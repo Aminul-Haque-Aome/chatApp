@@ -80,7 +80,7 @@ class ChatViewModel(
             object : FireBaseRealTimeDataBaseCallback.GetAllMessage {
                 override fun onRetrieveSuccess(messages: List<Message>) {
                     hideLoader()
-                    messageList.value = messages
+                    messageList.value = messages.reversed()
                 }
 
                 override fun onRetrieveFailed(messages: String) {

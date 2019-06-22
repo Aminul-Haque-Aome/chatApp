@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.remotearth.fake_coder.chatapp.Message
 
 import com.remotearth.fake_coder.chatapp.R
@@ -22,6 +23,7 @@ import com.remotearth.fake_coder.chatapp.services.impls.FireBaseRealTimeDataBase
 import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import com.remotearth.fake_coder.chatapp.viewModels.ChatViewModel
 import com.remotearth.fake_coder.chatapp.viewModels.factories.ChatViewModelFactory
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.chat_fragment.*
 
 class ChatFragment : BaseFragment(), ChatView {
@@ -30,6 +32,7 @@ class ChatFragment : BaseFragment(), ChatView {
     private lateinit var chatFragmentBinding: ChatFragmentBinding
 
     private lateinit var chatAdapter: ChatAdapter
+    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun initDataBinding(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         chatFragmentBinding = DataBindingUtil.inflate(
@@ -48,6 +51,12 @@ class ChatFragment : BaseFragment(), ChatView {
 
         chatAdapter = ChatAdapter(FirebaseAuth.getInstance().currentUser?.uid!!)
         messageRecyclerView.adapter = chatAdapter
+
+        compositeDisposable.add(RxTextView.textChanges(textMessage)
+            .filter { it.isNotEmpty() }
+            .subscribe {
+
+            })
     }
 
     override fun initViewModel() {
@@ -68,6 +77,7 @@ class ChatFragment : BaseFragment(), ChatView {
 
     override fun bundleCommunication() {
         val receiver = arguments?.getParcelable<User>(Constant.BUNDLE_USER)
+        chatFragmentBinding.imageUrl = receiver?.profileImageUrl
         viewModel.isThreadExist(receiver?.id!!)
     }
 

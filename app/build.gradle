@@ -73,6 +73,9 @@ dependencies {
     // ... AVLoadingIndicatorView (https://github.com/agrawalsuneet/DotLoadersPack-Android)
     implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4.1'
 
+    // ... RxBinding(https://github.com/JakeWharton/RxBinding)
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

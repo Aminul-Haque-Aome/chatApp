@@ -2,12 +2,12 @@ package com.remotearth.fake_coder.chatapp.services.impls
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.remotearth.fake_coder.chatapp.Message
+import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import timber.log.Timber
 
@@ -190,7 +190,9 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
         threadName: String,
         fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage
     ) {
-        databaseReference.child(Constant.CHAT_TABLE).child(threadName)
+        databaseReference
+            .child(Constant.CHAT_TABLE)
+            .child(threadName)
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(databaseError: DatabaseError) {
                     Timber.e(databaseError.toException())
@@ -199,14 +201,11 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        val messageList: MutableList<Message> = ArrayList()
-
+                        val messageList: ArrayList<Message> = ArrayList()
                         for (userSnapShort in dataSnapshot.children) {
                             val message = userSnapShort.getValue(Message::class.java)
-                            Timber.d("Message " + message?.text)
                             message?.let { messageList.add(it) }
                         }
-
                         fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(messageList)
                     } else {
                         fireBaseRealTimeDataBaseCallback.onRetrieveFailed("No chats!!")
@@ -245,6 +244,36 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                     fireBaseRealTimeDataBaseCallback.onUpdateFailed(databaseError.message)
                 }
             })
+    }
+
+    override fun modifyTypingStatus(threadName: String, userId: String, status: Boolean) {
+        val hashMap = HashMap<String, Boolean>()
+        hashMap[Constant.TYPING_STATUS_FIELD_IS_TYPING] = status
+
+        databaseReference
+            .child(Constant.TYPING_STATUS_TABLE)
+            .child(threadName)
+            .child(userId)
+            .setValue(hashMap)
+    }
+
+    override fun checkIfUserIsTypingOrNot(
+        threadName: String,
+        userId: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.TypingStatus
+    ) {
+        databaseReference.child(Constant.TYPING_STATUS_TABLE).child(threadName).child(userId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val status = dataSnapshot.child(Constant.TYPING_STATUS_FIELD_IS_TYPING).getValue(Boolean::class.java)
+                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(status!!)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
     }
 
 }

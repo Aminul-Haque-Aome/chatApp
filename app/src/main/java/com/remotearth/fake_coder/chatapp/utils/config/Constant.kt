@@ -12,6 +12,9 @@ object Constant {
     const val CHAT_TABLE = "Chats"
     const val CHAT_FIELD_IS_MESSAGE_SEEN = "seen"
 
+    const val TYPING_STATUS_TABLE = "TypingStatus"
+    const val TYPING_STATUS_FIELD_IS_TYPING = "typing"
+
     const val KEY_DATE_MONTH_YEAR = "dd-MM-yyyy"
     const val DATE_MONTH_YEAR_HOUR_MINUTE_AM_PM = "dd MM yyyy h:mm a"
     const val KEY_MONTH_YEAR = "MMMM,yy"

@@ -16,6 +16,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -55,10 +60,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
 
     // ... FireBase
-    implementation 'com.google.firebase:firebase-auth:17.0.0'
-    implementation 'com.google.firebase:firebase-database:17.0.0'
-    implementation 'com.google.firebase:firebase-storage:17.0.0'
-    implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-database:18.0.0'
+    implementation 'com.google.firebase:firebase-storage:18.0.0'
+    implementation 'com.google.firebase:firebase-messaging:19.0.0'
 
     // ... Timber (https://github.com/JakeWharton/timber)
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -69,6 +74,12 @@ dependencies {
     // ... Glide (https://github.com/bumptech/glide)
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    // ... AVLoadingIndicatorView (https://github.com/agrawalsuneet/DotLoadersPack-Android)
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4.1'
+
+    // ... RxBinding(https://github.com/JakeWharton/RxBinding)
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

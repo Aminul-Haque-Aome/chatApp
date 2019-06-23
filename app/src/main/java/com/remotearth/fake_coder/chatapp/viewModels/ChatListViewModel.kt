@@ -41,7 +41,15 @@ class ChatListViewModel(
         fireBaseRealTimeDataBaseService.retrieveAllUsers(object: FireBaseRealTimeDataBaseCallback.UserListRetrieval {
             override fun onRetrieveSuccess(users: List<User>) {
                 hideLoader()
-                userList.value = users
+
+                val listWithoutCurrentUser: MutableList<User> = ArrayList()
+                for (user in users) {
+                    if (user.id != fireBaseAuthService.getFireBaseUser()?.uid) {
+                        listWithoutCurrentUser.add(user)
+                    }
+                }
+
+                userList.value = listWithoutCurrentUser
             }
 
             override fun onRetrieveFailed(error: String) {

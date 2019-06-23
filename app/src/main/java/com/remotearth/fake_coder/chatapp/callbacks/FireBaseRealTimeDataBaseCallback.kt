@@ -41,11 +41,15 @@ interface FireBaseRealTimeDataBaseCallback {
     }
 
     interface GetAllMessage {
-        fun onRetrieveSuccess(messages: List<Message>)
+        fun onRetrieveSuccess(messages: ArrayList<Message>)
         fun onRetrieveFailed(messages: String)
     }
 
     interface UpdateSeenStatus {
         fun onUpdateFailed(messages: String)
+    }
+
+    interface TypingStatus {
+        fun onRetrieveSuccess(isTyping: Boolean)
     }
 }

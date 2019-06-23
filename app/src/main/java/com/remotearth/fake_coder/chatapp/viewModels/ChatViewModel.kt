@@ -65,6 +65,7 @@ class ChatViewModel(
                     chatThreadName = threadName
                     updatePreviousMessageSeenStatus()
                     getAllMessageOfTheThread()
+                    checkReceiverTypingStatus(chatThreadName!!, receiverId)
                 }
 
                 override fun onRetrieveFailed(error: String) {
@@ -74,13 +75,28 @@ class ChatViewModel(
             })
     }
 
+    fun updatePreviousMessageSeenStatus() {
+        if (chatView.isInternetAvailable()!!) {
+            fireBaseRealTimeDataBaseService.updateMessageSeenStatus(
+                chatThreadName!!,
+                getSenderId(),
+                object : FireBaseRealTimeDataBaseCallback.UpdateSeenStatus {
+                    override fun onUpdateFailed(messages: String) {
+                        chatView.showToast(messages)
+                    }
+                })
+        } else {
+            chatView.showToast("Please connect to Internet")
+        }
+    }
+
     private fun getAllMessageOfTheThread() {
         fireBaseRealTimeDataBaseService.loadAllMessageOfSpecificThread(
             chatThreadName!!,
             object : FireBaseRealTimeDataBaseCallback.GetAllMessage {
-                override fun onRetrieveSuccess(messages: List<Message>) {
+                override fun onRetrieveSuccess(messages: ArrayList<Message>) {
                     hideLoader()
-                    messageList.value = messages.reversed()
+                    messageList.value = ArrayList(messages.reversed())
                 }
 
                 override fun onRetrieveFailed(messages: String) {
@@ -123,16 +139,28 @@ class ChatViewModel(
             })
     }
 
-    fun updatePreviousMessageSeenStatus() {
+    fun changeUserTypingStatus(isTyping: Boolean) {
         if (chatView.isInternetAvailable()!!) {
-            fireBaseRealTimeDataBaseService.updateMessageSeenStatus(chatThreadName!!, getSenderId(), object: FireBaseRealTimeDataBaseCallback.UpdateSeenStatus {
-                override fun onUpdateFailed(messages: String) {
-                    chatView.showToast(messages)
-                }
-            })
-        } else {
-            chatView.showToast("Please connect to Internet")
+            chatThreadName?.let {
+                fireBaseRealTimeDataBaseService.modifyTypingStatus(it, getSenderId(), isTyping)
+            }
         }
     }
 
+    private fun checkReceiverTypingStatus(threadName: String, userId: String) {
+        if (chatView.isInternetAvailable()!!) {
+            fireBaseRealTimeDataBaseService.checkIfUserIsTypingOrNot(
+                threadName,
+                userId,
+                object : FireBaseRealTimeDataBaseCallback.TypingStatus {
+                    override fun onRetrieveSuccess(isTyping: Boolean) {
+                        if (isTyping) {
+                            chatView.showTypingIndicator()
+                        } else {
+                            chatView.hideTypingIndicator()
+                        }
+                    }
+                })
+        }
+    }
 }

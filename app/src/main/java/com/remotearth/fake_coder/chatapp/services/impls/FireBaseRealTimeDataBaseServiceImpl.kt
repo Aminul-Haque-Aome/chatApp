@@ -190,7 +190,9 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
         threadName: String,
         fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.GetAllMessage
     ) {
-        databaseReference.child(Constant.CHAT_TABLE).child(threadName)
+        databaseReference
+            .child(Constant.CHAT_TABLE)
+            .child(threadName)
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(databaseError: DatabaseError) {
                     Timber.e(databaseError.toException())
@@ -199,14 +201,11 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        val messageList: MutableList<Message> = ArrayList()
-
+                        val messageList: ArrayList<Message> = ArrayList()
                         for (userSnapShort in dataSnapshot.children) {
                             val message = userSnapShort.getValue(Message::class.java)
-                            Timber.d("Message " + message?.text)
                             message?.let { messageList.add(it) }
                         }
-
                         fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(messageList)
                     } else {
                         fireBaseRealTimeDataBaseCallback.onRetrieveFailed("No chats!!")

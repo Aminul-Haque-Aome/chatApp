@@ -52,11 +52,13 @@ class ChatFragment : BaseFragment(), ChatView {
         chatAdapter = ChatAdapter(FirebaseAuth.getInstance().currentUser?.uid!!)
         messageRecyclerView.adapter = chatAdapter
 
-        compositeDisposable.add(RxTextView.textChanges(textMessage)
-            .filter { it.isNotEmpty() }
-            .subscribe {
-
-            })
+        compositeDisposable.add(RxTextView.textChanges(textMessage).subscribe {
+            if (it.isNotEmpty()) {
+                // ... typingStatus = true
+            } else {
+                // ... typingStatus = false
+            }
+        })
     }
 
     override fun initViewModel() {

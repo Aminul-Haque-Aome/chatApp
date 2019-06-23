@@ -48,4 +48,8 @@ interface FireBaseRealTimeDataBaseCallback {
     interface UpdateSeenStatus {
         fun onUpdateFailed(messages: String)
     }
+
+    interface TypingStatus {
+        fun onRetrieveSuccess(isTyping: Boolean)
+    }
 }

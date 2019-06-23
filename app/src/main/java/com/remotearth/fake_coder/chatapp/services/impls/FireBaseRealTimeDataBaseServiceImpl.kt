@@ -2,12 +2,12 @@ package com.remotearth.fake_coder.chatapp.services.impls
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.remotearth.fake_coder.chatapp.Message
+import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import timber.log.Timber
 
@@ -244,6 +244,36 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
                     fireBaseRealTimeDataBaseCallback.onUpdateFailed(databaseError.message)
                 }
             })
+    }
+
+    override fun modifyTypingStatus(threadName: String, userId: String, status: Boolean) {
+        val hashMap = HashMap<String, Boolean>()
+        hashMap[Constant.TYPING_STATUS_FIELD_IS_TYPING] = status
+
+        databaseReference
+            .child(Constant.TYPING_STATUS_TABLE)
+            .child(threadName)
+            .child(userId)
+            .setValue(hashMap)
+    }
+
+    override fun checkIfUserIsTypingOrNot(
+        threadName: String,
+        userId: String,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.TypingStatus
+    ) {
+        databaseReference.child(Constant.TYPING_STATUS_TABLE).child(threadName).child(userId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val status = dataSnapshot.child(Constant.TYPING_STATUS_FIELD_IS_TYPING).getValue(Boolean::class.java)
+                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(status!!)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
     }
 
 }

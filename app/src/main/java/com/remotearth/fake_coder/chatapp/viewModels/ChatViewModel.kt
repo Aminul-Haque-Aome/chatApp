@@ -65,6 +65,7 @@ class ChatViewModel(
                     chatThreadName = threadName
                     updatePreviousMessageSeenStatus()
                     getAllMessageOfTheThread()
+                    checkReceiverTypingStatus(chatThreadName!!, receiverId)
                 }
 
                 override fun onRetrieveFailed(error: String) {
@@ -76,11 +77,14 @@ class ChatViewModel(
 
     fun updatePreviousMessageSeenStatus() {
         if (chatView.isInternetAvailable()!!) {
-            fireBaseRealTimeDataBaseService.updateMessageSeenStatus(chatThreadName!!, getSenderId(), object: FireBaseRealTimeDataBaseCallback.UpdateSeenStatus {
-                override fun onUpdateFailed(messages: String) {
-                    chatView.showToast(messages)
-                }
-            })
+            fireBaseRealTimeDataBaseService.updateMessageSeenStatus(
+                chatThreadName!!,
+                getSenderId(),
+                object : FireBaseRealTimeDataBaseCallback.UpdateSeenStatus {
+                    override fun onUpdateFailed(messages: String) {
+                        chatView.showToast(messages)
+                    }
+                })
         } else {
             chatView.showToast("Please connect to Internet")
         }
@@ -135,4 +139,28 @@ class ChatViewModel(
             })
     }
 
+    fun changeUserTypingStatus(isTyping: Boolean) {
+        if (chatView.isInternetAvailable()!!) {
+            chatThreadName?.let {
+                fireBaseRealTimeDataBaseService.modifyTypingStatus(it, getSenderId(), isTyping)
+            }
+        }
+    }
+
+    private fun checkReceiverTypingStatus(threadName: String, userId: String) {
+        if (chatView.isInternetAvailable()!!) {
+            fireBaseRealTimeDataBaseService.checkIfUserIsTypingOrNot(
+                threadName,
+                userId,
+                object : FireBaseRealTimeDataBaseCallback.TypingStatus {
+                    override fun onRetrieveSuccess(isTyping: Boolean) {
+                        if (isTyping) {
+                            chatView.showTypingIndicator()
+                        } else {
+                            chatView.hideTypingIndicator()
+                        }
+                    }
+                })
+        }
+    }
 }

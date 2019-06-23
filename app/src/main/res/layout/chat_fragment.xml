@@ -50,6 +50,7 @@
             android:layout_marginEnd="@dimen/receiver_chat_end_margin"
             android:layout_marginTop="@dimen/chat_separator_margin"
             android:layout_marginBottom="@dimen/chat_separator_margin"
+            android:visibility="gone"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

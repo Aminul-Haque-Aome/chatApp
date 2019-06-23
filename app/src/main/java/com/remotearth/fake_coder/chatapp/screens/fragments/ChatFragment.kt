@@ -51,14 +51,6 @@ class ChatFragment : BaseFragment(), ChatView {
 
         chatAdapter = ChatAdapter(FirebaseAuth.getInstance().currentUser?.uid!!)
         messageRecyclerView.adapter = chatAdapter
-
-        compositeDisposable.add(RxTextView.textChanges(textMessage).subscribe {
-            if (it.isNotEmpty()) {
-                // ... typingStatus = true
-            } else {
-                // ... typingStatus = false
-            }
-        })
     }
 
     override fun initViewModel() {
@@ -75,6 +67,14 @@ class ChatFragment : BaseFragment(), ChatView {
         chatFragmentBinding.message = viewModel.message
 
         viewModel.messageList.observe(this, Observer { chatAdapter.replaceData(it as ArrayList<Message>) })
+
+        compositeDisposable.add(RxTextView.textChanges(textMessage).subscribe {
+            if (it.isNotEmpty()) {
+                viewModel.changeUserTypingStatus(true)
+            } else {
+                viewModel.changeUserTypingStatus(false)
+            }
+        })
     }
 
     override fun bundleCommunication() {
@@ -87,6 +87,14 @@ class ChatFragment : BaseFragment(), ChatView {
         viewModel.updatePreviousMessageSeenStatus()
         chatAdapter.notifyDataSetChanged()
         textMessage.setText("")
+    }
+
+    override fun showTypingIndicator() {
+        typingIndicatorLayout.visibility = View.VISIBLE
+    }
+
+    override fun hideTypingIndicator() {
+        typingIndicatorLayout.visibility = View.GONE
     }
 
 }

@@ -17,6 +17,7 @@ import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.adapters.ChatAdapter
 import com.remotearth.fake_coder.chatapp.contracts.ChatView
 import com.remotearth.fake_coder.chatapp.databinding.ChatFragmentBinding
+import com.remotearth.fake_coder.chatapp.screens.activity.MainActivity
 import com.remotearth.fake_coder.chatapp.screens.fragments.base.BaseFragment
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseAuthServiceImpl
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseRealTimeDataBaseServiceImpl
@@ -77,6 +78,11 @@ class ChatFragment : BaseFragment(), ChatView {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        compositeDisposable.dispose()
+    }
+
     override fun bundleCommunication() {
         val receiver = arguments?.getParcelable<User>(Constant.BUNDLE_USER)
         chatFragmentBinding.user = receiver
@@ -95,6 +101,10 @@ class ChatFragment : BaseFragment(), ChatView {
 
     override fun hideTypingIndicator() {
         typingIndicatorLayout.visibility = View.GONE
+    }
+
+    override fun navigateBackToChatList() {
+        (activity as MainActivity).onSupportNavigateUp()
     }
 
 }

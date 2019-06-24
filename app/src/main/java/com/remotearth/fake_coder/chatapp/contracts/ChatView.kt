@@ -6,4 +6,5 @@ interface ChatView: BaseView {
     fun clearTextFieldAndRefreshData()
     fun showTypingIndicator()
     fun hideTypingIndicator()
+    fun navigateBackToChatList()
 }

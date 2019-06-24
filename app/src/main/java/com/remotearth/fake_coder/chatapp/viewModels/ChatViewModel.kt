@@ -163,4 +163,8 @@ class ChatViewModel(
                 })
         }
     }
+
+    fun navigateBack() {
+        chatView.navigateBackToChatList()
+    }
 }

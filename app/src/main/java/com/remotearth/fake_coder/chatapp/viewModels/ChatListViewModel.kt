@@ -16,6 +16,8 @@ class ChatListViewModel(
 
     var userList: MutableLiveData<List<User>> = MutableLiveData()
 
+    fun getUserId() = fireBaseAuthService.getFireBaseUser()?.uid
+
     fun checkUserStatus() {
         if (fireBaseAuthService.getFireBaseUser() == null) {
             chatListView.navigateToLogin()

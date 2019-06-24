@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.User
@@ -60,6 +61,7 @@ class ChatListFragment : BaseFragment(), ChatListView {
         ).get(ChatListViewModel::class.java)
 
         chatListFragmentBinding.chatListViewModel = viewModel
+        chatListFragmentBinding.userId = viewModel.getUserId()
         viewModel.userList.observe(this, Observer { userListAdapter.replaceData(it as ArrayList<User>) })
     }
 

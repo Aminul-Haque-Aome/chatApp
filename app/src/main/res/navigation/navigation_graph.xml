@@ -10,7 +10,7 @@
     <fragment
         android:id="@+id/chatListFragment"
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.ChatListFragment"
-        android:label="chat_list_fragment"
+        android:label="Chats"
         tools:layout="@layout/chat_list_fragment">
         <action
             android:id="@+id/chatList_to_login"
@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.LoginFragment"
-        android:label="login_fragment"
+        android:label="Login"
         tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/login_to_signUp"
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.SignUpFragment"
-        android:label="sign_up_fragment"
+        android:label="Sign Up"
         tools:layout="@layout/sign_up_fragment">
         <action
             android:id="@+id/signUp_to_chatList"
@@ -55,13 +55,13 @@
     <fragment
         android:id="@+id/userInfoFragment"
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.UserInfoFragment"
-        android:label="UserInfoFragment"
+        android:label="User Info"
         tools:layout="@layout/user_info_fragment"/>
 
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.remotearth.fake_coder.chatapp.screens.fragments.ChatFragment"
-        android:label="ChatFragment"
+        android:label="Chat"
         tools:layout="@layout/chat_fragment"/>
 
 </navigation>

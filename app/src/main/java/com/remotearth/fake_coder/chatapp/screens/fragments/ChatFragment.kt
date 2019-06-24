@@ -79,7 +79,7 @@ class ChatFragment : BaseFragment(), ChatView {
 
     override fun bundleCommunication() {
         val receiver = arguments?.getParcelable<User>(Constant.BUNDLE_USER)
-        chatFragmentBinding.imageUrl = receiver?.profileImageUrl
+        chatFragmentBinding.user = receiver
         viewModel.isThreadExist(receiver?.id!!)
     }
 

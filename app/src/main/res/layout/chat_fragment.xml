@@ -3,16 +3,18 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="com.remotearth.fake_coder.chatapp.Message"/>
+        <import type="com.remotearth.fake_coder.chatapp.User"/>
         <import type="com.remotearth.fake_coder.chatapp.viewModels.ChatViewModel"/>
         <import type="android.view.View"/>
 
         <variable name="message" type="Message"/>
+        <variable name="user" type="User"/>
         <variable name="chatViewModel" type="ChatViewModel"/>
-        <variable name="imageUrl" type="String"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,12 +33,23 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <include
+            android:id="@+id/header"
+            layout="@layout/header_user_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:chatViewModel="@{chatViewModel}"
+            bind:user="@{user}"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messageRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="3dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/typingIndicatorLayout"
@@ -62,7 +75,7 @@
                 tools:src="@drawable/ic_select_image"
                 android:id="@+id/circleImageView"
                 android:layout_gravity="center"
-                app:profileImage="@{imageUrl}"/>
+                app:profileImage="@{user.profileImageUrl}"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureHidingStatusOfActionBar() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.loginFragment || destination.id == R.id.signUpFragment) {
+            if (destination.id == R.id.loginFragment || destination.id == R.id.signUpFragment || destination.id == R.id.chatFragment || destination.id == R.id.chatListFragment) {
                 toolbar.visibility = View.GONE
             } else {
                 toolbar.visibility = View.VISIBLE

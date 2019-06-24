@@ -15,12 +15,11 @@ object Constant {
     const val TYPING_STATUS_TABLE = "TypingStatus"
     const val TYPING_STATUS_FIELD_IS_TYPING = "typing"
 
-    const val KEY_DATE_MONTH_YEAR = "dd-MM-yyyy"
-    const val DATE_MONTH_YEAR_HOUR_MINUTE_AM_PM = "dd MM yyyy h:mm a"
-    const val KEY_MONTH_YEAR = "MMMM,yy"
-    const val KEY_YEAR = "yyyy"
-    const val KEY_MONTH = "MMMM"
-    const val HOUR_MINUTE_AM_PM = "h:mm a"
+    const val DATE_FORMAT_OF_DEFAULT = "h:mm a"
+    const val DATE_FORMAT_OF_YEAR = "yyyy"
+    const val DATE_FORMAT_OF_DAY = "dd"
+    const val DATE_FORMAT_OF_MONTH_DAY_YEAR = "MMMM dd, yyyy"
+    const val DATE_FORMAT_OF_MONTH_DAY = "MMMM dd"
 
     const val BUNDLE_USER = "bundle"
 }

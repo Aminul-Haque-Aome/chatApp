@@ -8,22 +8,14 @@ import java.util.*
 
 object DateTimeUtil {
 
-    fun getDate(): String {
-        val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat(Constant.HOUR_MINUTE_AM_PM, Locale.getDefault())
-        return dateFormat.format(calendar.time)
+    fun getTimeStamp(): Long {
+        return System.currentTimeMillis()
     }
 
-    fun getDate(format: String): String {
-        val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat(format, Locale.getDefault())
-        return dateFormat.format(calendar.time)
-    }
-
-    fun getDate(format: String, days: Int): String {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_MONTH, days)
-        val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+    fun getDate(datetime: Long): String {
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        calendar.timeInMillis = datetime
+        val dateFormat = SimpleDateFormat(Constant.DATE_FORMAT_OF_DEFAULT, Locale.getDefault())
         return dateFormat.format(calendar.time)
     }
 
@@ -60,10 +52,6 @@ object DateTimeUtil {
         }
 
         return calendar.timeInMillis
-    }
-
-    fun getTimeStamp(): Long {
-        return System.currentTimeMillis()
     }
 
 }

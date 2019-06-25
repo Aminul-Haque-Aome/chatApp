@@ -62,7 +62,7 @@ class ChatListFragment : BaseFragment(), ChatListView {
 
         chatListFragmentBinding.chatListViewModel = viewModel
         chatListFragmentBinding.userId = viewModel.getUserId()
-        viewModel.userList.observe(this, Observer { userListAdapter.replaceData(it as ArrayList<User>) })
+        viewModel.userList.observe(this, Observer { userListAdapter.submitList(it as ArrayList<User>) })
     }
 
     override fun bundleCommunication() {}

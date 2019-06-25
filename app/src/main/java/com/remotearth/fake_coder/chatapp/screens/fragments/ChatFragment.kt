@@ -67,7 +67,7 @@ class ChatFragment : BaseFragment(), ChatView {
         chatFragmentBinding.chatViewModel = viewModel
         chatFragmentBinding.message = viewModel.message
 
-        viewModel.messageList.observe(this, Observer { chatAdapter.replaceData(it as ArrayList<Message>) })
+        viewModel.messageList.observe(this, Observer { chatAdapter.submitList(it as ArrayList<Message>) })
 
         compositeDisposable.add(RxTextView.textChanges(textMessage).subscribe {
             if (it.isNotEmpty()) {

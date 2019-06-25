@@ -1,29 +1,32 @@
 package com.remotearth.fake_coder.chatapp.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+
 import com.remotearth.fake_coder.chatapp.Message
-import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.ReceivedViewHolder
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.SentViewHolder
 import com.remotearth.fake_coder.chatapp.databinding.MessageReceiverLayoutBinding
 import com.remotearth.fake_coder.chatapp.databinding.MessageSenderLayoutBinding
-import timber.log.Timber
 
-class ChatAdapter(private val fireBaseUserId: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatAdapter(private val fireBaseUserId: String) : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
-    private var messages: ArrayList<Message> = ArrayList()
+    companion object {
+        private const val SENDER = 0
+        private const val RECEIVER = 1
 
-    private companion object {
-        const val SENDER = 0
-        const val RECEIVER = 1
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Message>() {
+            override fun areItemsTheSame(oldItem: Message, newItem: Message) = (oldItem.timestamp == newItem.timestamp)
+            override fun areContentsTheSame(oldItem: Message, newItem: Message) = (oldItem == newItem)
+        }
     }
 
     override fun getItemViewType(position: Int) = when {
-        messages[position].userId.equals(fireBaseUserId) -> SENDER
+        getItem(position).userId.equals(fireBaseUserId) -> SENDER
         else -> RECEIVER
     }
 
@@ -50,20 +53,13 @@ class ChatAdapter(private val fireBaseUserId: String) : RecyclerView.Adapter<Rec
         when (holder.itemViewType) {
             SENDER -> {
                 val sentViewHolder = holder as SentViewHolder
-                sentViewHolder.bind(messages[position])
+                sentViewHolder.bind(getItem(position))
             }
 
             RECEIVER -> {
                 val receivedViewHolder = holder as ReceivedViewHolder
-                receivedViewHolder.bind(messages[position])
+                receivedViewHolder.bind(getItem(position))
             }
         }
-    }
-
-    override fun getItemCount() = messages.size
-
-    fun replaceData(messages: ArrayList<Message>) {
-        this.messages = messages
-        notifyDataSetChanged()
     }
 }

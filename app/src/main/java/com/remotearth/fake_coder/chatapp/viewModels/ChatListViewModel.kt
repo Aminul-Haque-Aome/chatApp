@@ -1,9 +1,12 @@
 package com.remotearth.fake_coder.chatapp.viewModels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
 import com.remotearth.fake_coder.chatapp.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
 import com.remotearth.fake_coder.chatapp.contracts.ChatListView
+import com.remotearth.fake_coder.chatapp.data.UserDataProvider
 import com.remotearth.fake_coder.chatapp.services.FireBaseAuthService
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 import com.remotearth.fake_coder.chatapp.viewModels.base.BaseViewModel
@@ -14,9 +17,14 @@ class ChatListViewModel(
     private val chatListView: ChatListView
 ) : BaseViewModel() {
 
+    private val userDataProvider: UserDataProvider = UserDataProvider(fireBaseRealTimeDataBaseService)
     var userList: MutableLiveData<List<User>> = MutableLiveData()
 
     fun getUserId() = fireBaseAuthService.getFireBaseUser()?.uid
+
+    fun getUser(): LiveData<PagedList<User>>? {
+        return userDataProvider.getUsers()
+    }
 
     fun checkUserStatus() {
         if (fireBaseAuthService.getFireBaseUser() == null) {

@@ -71,6 +71,88 @@ class FireBaseRealTimeDataBaseServiceImpl : FireBaseRealTimeDataBaseService {
             })
     }
 
+    override fun retrieveAllUsers(
+        count: Int,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UserListRetrieval
+    ) {
+        databaseReference
+            .child(Constant.USER_TABLE)
+            .orderByKey()
+            .limitToFirst(count)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val userList: MutableList<User> = ArrayList()
+
+                    for (userSnapShort in dataSnapshot.children) {
+                        val user = userSnapShort.getValue(User::class.java)
+                        user?.let { userList.add(it) }
+                    }
+
+                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(userList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed(error.details)
+                }
+            })
+    }
+
+    override fun retrieveAllUsersAfter(
+        key: String,
+        count: Int,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UserListRetrieval
+    ) {
+        databaseReference
+            .child(Constant.USER_TABLE)
+            .orderByKey()
+            .startAt(key)
+            .limitToFirst(count)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val userList: MutableList<User> = ArrayList()
+
+                    for (userSnapShort in dataSnapshot.children) {
+                        val user = userSnapShort.getValue(User::class.java)
+                        user?.let { userList.add(it) }
+                    }
+
+                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(userList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed(error.details)
+                }
+            })
+    }
+
+    override fun retrieveAllUsersBefore(
+        key: String,
+        count: Int,
+        fireBaseRealTimeDataBaseCallback: FireBaseRealTimeDataBaseCallback.UserListRetrieval
+    ) {
+        databaseReference
+            .child(Constant.USER_TABLE)
+            .orderByKey()
+            .endAt(key)
+            .limitToLast(count)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val userList: MutableList<User> = ArrayList()
+
+                    for (userSnapShort in dataSnapshot.children) {
+                        val user = userSnapShort.getValue(User::class.java)
+                        user?.let { userList.add(it) }
+                    }
+
+                    fireBaseRealTimeDataBaseCallback.onRetrieveSuccess(userList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    fireBaseRealTimeDataBaseCallback.onRetrieveFailed(error.details)
+                }
+            })
+    }
+
     override fun updateUserField(
         userId: String,
         fieldMapping: Map<String, String>,

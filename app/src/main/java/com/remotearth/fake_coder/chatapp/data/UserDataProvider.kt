@@ -3,7 +3,7 @@ package com.remotearth.fake_coder.chatapp.data
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.User
 import com.remotearth.fake_coder.chatapp.data.factory.UserDataFactory
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 

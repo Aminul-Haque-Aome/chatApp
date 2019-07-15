@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.User
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.UserListViewHolder
 import com.remotearth.fake_coder.chatapp.databinding.UserItemBinding
 

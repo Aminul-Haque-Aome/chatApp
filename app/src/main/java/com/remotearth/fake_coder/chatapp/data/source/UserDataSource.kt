@@ -1,8 +1,7 @@
 package com.remotearth.fake_coder.chatapp.data.source
 
 import androidx.paging.ItemKeyedDataSource
-import androidx.paging.PageKeyedDataSource
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 

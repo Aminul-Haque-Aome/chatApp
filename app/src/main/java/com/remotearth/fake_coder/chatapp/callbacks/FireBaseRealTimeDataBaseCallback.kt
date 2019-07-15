@@ -1,7 +1,7 @@
 package com.remotearth.fake_coder.chatapp.callbacks
 
-import com.remotearth.fake_coder.chatapp.Message
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.Message
+import com.remotearth.fake_coder.chatapp.pojos.User
 
 interface FireBaseRealTimeDataBaseCallback {
 

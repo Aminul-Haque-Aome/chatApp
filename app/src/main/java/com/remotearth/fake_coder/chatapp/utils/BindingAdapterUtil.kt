@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.remotearth.fake_coder.chatapp.R
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallback
 import com.remotearth.fake_coder.chatapp.services.impls.FireBaseRealTimeDataBaseServiceImpl
 import com.remotearth.fake_coder.chatapp.utils.DateTimeUtil.getDate

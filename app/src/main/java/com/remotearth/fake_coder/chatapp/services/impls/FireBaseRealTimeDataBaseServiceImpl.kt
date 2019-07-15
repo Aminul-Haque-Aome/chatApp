@@ -6,8 +6,8 @@ import com.remotearth.fake_coder.chatapp.callbacks.FireBaseRealTimeDataBaseCallb
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.remotearth.fake_coder.chatapp.Message
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.Message
+import com.remotearth.fake_coder.chatapp.pojos.User
 import com.remotearth.fake_coder.chatapp.utils.config.Constant
 import timber.log.Timber
 

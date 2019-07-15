@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-import com.remotearth.fake_coder.chatapp.Message
+import com.remotearth.fake_coder.chatapp.pojos.Message
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.ReceivedViewHolder
 import com.remotearth.fake_coder.chatapp.adapters.viewHolders.SentViewHolder
 import com.remotearth.fake_coder.chatapp.databinding.MessageReceiverLayoutBinding

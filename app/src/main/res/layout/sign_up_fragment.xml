@@ -5,18 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.remotearth.fake_coder.chatapp.User"/>
-        <import type="com.remotearth.fake_coder.chatapp.viewModels.SignUpViewModel"/>
+        <import type="com.remotearth.fake_coder.chatapp.pojos.User"/>
+        <import type="com.remotearth.fake_coder.chatapp.screens.fragments.signUp.SignUpViewModel"/>
         <import type="android.view.View"/>
 
-        <variable name="user" type="User"/>
-        <variable name="signUpViewModel" type="SignUpViewModel"/>
+        <variable name="user" type="com.remotearth.fake_coder.chatapp.pojos.User"/>
+        <variable name="signUpViewModel" type="com.remotearth.fake_coder.chatapp.screens.fragments.signUp.SignUpViewModel"/>
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.fragments.SignUpFragment">
+        tools:context=".screens.fragments.signUp.SignUpFragment">
 
         <ProgressBar
             android:id="@+id/loading"

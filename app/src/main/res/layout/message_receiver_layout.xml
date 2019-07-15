@@ -7,9 +7,9 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.remotearth.fake_coder.chatapp.Message"/>
+        <import type="com.remotearth.fake_coder.chatapp.pojos.Message"/>
 
-        <variable name="message" type="Message"/>
+        <variable name="message" type="com.remotearth.fake_coder.chatapp.pojos.Message"/>
     </data>
 
     <LinearLayout

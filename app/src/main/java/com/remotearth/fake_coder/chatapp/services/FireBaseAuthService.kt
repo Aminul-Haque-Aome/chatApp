@@ -1,8 +1,8 @@
 package com.remotearth.fake_coder.chatapp.services
 
 import com.google.firebase.auth.FirebaseUser
-import com.remotearth.fake_coder.chatapp.Auth
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.Auth
+import com.remotearth.fake_coder.chatapp.pojos.User
 import com.remotearth.fake_coder.chatapp.callbacks.FireBaseAuthCallBack
 
 interface FireBaseAuthService {

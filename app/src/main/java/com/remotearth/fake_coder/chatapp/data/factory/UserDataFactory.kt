@@ -2,7 +2,7 @@ package com.remotearth.fake_coder.chatapp.data.factory
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.remotearth.fake_coder.chatapp.User
+import com.remotearth.fake_coder.chatapp.pojos.User
 import com.remotearth.fake_coder.chatapp.data.source.UserDataSource
 import com.remotearth.fake_coder.chatapp.services.FireBaseRealTimeDataBaseService
 

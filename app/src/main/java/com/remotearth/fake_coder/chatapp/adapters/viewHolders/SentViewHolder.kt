@@ -3,7 +3,7 @@ package com.remotearth.fake_coder.chatapp.adapters.viewHolders
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.remotearth.fake_coder.chatapp.Message
+import com.remotearth.fake_coder.chatapp.pojos.Message
 import com.remotearth.fake_coder.chatapp.R
 import com.remotearth.fake_coder.chatapp.databinding.MessageSenderLayoutBinding
 
